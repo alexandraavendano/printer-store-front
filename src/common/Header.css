@@ -1,0 +1,23 @@
+.Header {
+    background: #282c34;
+}
+
+.Header  li {
+    flex: 3;
+}
+
+.Header li:hover {
+    color: #61dafb;
+}
+
+ul.menu {
+    margin: 0;
+    min-height: 8vh;
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    color: white;
+    align-items: center;
+}
+
+
