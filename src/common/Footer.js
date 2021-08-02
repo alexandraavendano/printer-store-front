@@ -2,14 +2,47 @@ import {FiMapPin, FiPhone, FiMail, FiFacebook, FiTwitter, FiInstagram} from "rea
 import './Footer.css'
 function Footer(){
     return(
-        <div className='Footer'>
-            <FiMapPin size={30}/>
-            <FiPhone size={30}/>
-            <FiMail size={30}/>
-            <hr></hr>
-            <FiFacebook size={30}/>
-            <FiTwitter size={30}/>
-            <FiInstagram size={30}/>
+        <div className='Footer' >
+            <div className='column-menu'>
+                <div className="row limit-flex-m">
+                    <h4>About Us</h4>
+                    <span className="paragraph">At Perfect Image Printing, our goal is to earn your business and become your single source for all your printing needs by providing you the highest quality offset.</span>
+                    <div className="column-menu left">
+                        <div className="row"><FiFacebook size={20}/></div>
+                        <div className="row"><FiTwitter size={20}/></div>
+                        <div className="row"><FiInstagram size={20}/></div>
+                    </div>
+                </div>
+                <div className="row">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><a href="/#">Log In</a></li>
+                        <li><a href="/#">Services</a></li>
+                        <li><a href="/#">Products</a></li>
+                    </ul>
+                </div>
+                <div className="row">
+                    <h4>Get In Touch</h4>
+                    <div className="icon-text">
+                        <FiMapPin size={30}/>
+                        <p>123th Street City, State, Country </p>
+                    </div>
+                    <div className="icon-text">
+                        <FiPhone size={30}/>
+                        <p>(123) 456 789 - (123) 789 1234 </p>
+                    </div>
+                    <div className="icon-text">
+                        <FiMail size={30}/>
+                        <p>someemail@billboard.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <hr/>
+                <p>@2021 Billboard Company</p>
+                <p>All Rights Reserved</p>
+            </div>
         </div>
     );
 }

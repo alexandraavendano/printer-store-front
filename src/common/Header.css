@@ -2,10 +2,6 @@
     background: #282c34;
 }
 
-.Header  li {
-    flex: 3;
-}
-
 .Header li:hover {
     color: #61dafb;
 }
@@ -15,9 +11,19 @@ ul.menu {
     min-height: 8vh;
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
     list-style-type: none;
     color: white;
     align-items: center;
+}
+
+.logo {
+    color: #61dafb;
+}
+
+.Header li {
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 

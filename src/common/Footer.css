@@ -4,5 +4,69 @@
 }
 
 .Footer hr {
-    width: 80%;
+    width: 87%;
+}
+
+.Footer p {
+    margin: 0;
+    padding: 3px;
+}
+
+.Footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.Footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.Footer a:hover {
+    color: #61dafb;
+}
+
+.column-menu {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.Footer > .column-menu {
+    padding-left: 30px;
+    padding-right: 30px;
+    justify-content: space-around;
+}
+
+.row {
+    text-align: start;
+    padding-top: 20px;
+    padding-left: 10px;
+}
+
+.row > ul  {
+    list-style-type: none;
+    margin-block: 0;
+    padding-inline-start: 0;
+}
+
+.icon-text {
+    display: flex;
+    flex-direction: row;
+}
+
+.icon-text :first-child {
+    align-self: center;
+    margin: 5px;
+}
+
+.paragraph {
+    text-align: left;
+}
+
+.extra-padding {
+    padding-top: 15px;
+}
+
+.limit-flex-m {
+    flex-basis: 20rem;
 }

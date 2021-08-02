@@ -7,11 +7,13 @@ function Header(){
         <div className="Header">
             <nav>
                 <ul className="menu">
+                    <li className="logo"><strong>BILLBOARD</strong></li>
                     <li>Home</li>
                     <li>About</li>
+                    <li>Product</li>
                     <li>Services</li>
-                    <li><BsPersonFill size={20}/></li>
-                    <li><FaCartPlus size={20} /></li>
+                    <li className="icon"><BsPersonFill size={20}/></li>
+                    <li className="icon"><FaCartPlus size={20} /></li>
                 </ul>
             </nav>
         </div>
