@@ -1,8 +1,8 @@
 import './App.css';
-import Header from './common/Header'
-import Footer from './common/Footer';
+import Header from '../common/Header'
+import Footer from '../common/Footer';
 
-import Banner from './home/Banner';
+import Banner from './Banner';
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
                 submessage={"Design + Print + Install + Delivery"}
                 image={"designtools"}
             />
+            <hr/>
         </div>
         <Footer />
     </div>

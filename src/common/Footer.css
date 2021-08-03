@@ -17,11 +17,6 @@
     text-decoration: none;
 }
 
-.Footer a {
-    color: white;
-    text-decoration: none;
-}
-
 .Footer a:hover {
     color: #61dafb;
 }
@@ -52,10 +47,10 @@
 .icon-text {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
-.icon-text :first-child {
-    align-self: center;
+.icon-text > :first-child {
     margin: 5px;
 }
 

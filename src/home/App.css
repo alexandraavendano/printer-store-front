@@ -18,3 +18,8 @@
 .App-link {
   color: #61dafb;
 }
+
+.App-header > hr {
+  color: #484848;
+  width: 87%;
+}

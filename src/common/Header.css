@@ -21,6 +21,15 @@ ul.menu {
     color: #61dafb;
 }
 
+.Header a {
+    color: white;
+    text-decoration: none;
+}
+
+.Header a:hover {
+    color: #61dafb;
+}
+
 .Header li {
     padding-left: 15px;
     padding-right: 15px;

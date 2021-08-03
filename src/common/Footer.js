@@ -1,12 +1,14 @@
 import {FiMapPin, FiPhone, FiMail, FiFacebook, FiTwitter, FiInstagram} from "react-icons/all";
 import './Footer.css'
+import {Link} from "react-router-dom";
+
 function Footer(){
     return(
         <div className='Footer' >
             <div className='column-menu'>
                 <div className="row limit-flex-m">
                     <h4>About Us</h4>
-                    <span className="paragraph">At Perfect Image Printing, our goal is to earn your business and become your single source for all your printing needs by providing you the highest quality offset.</span>
+                    <span className="paragraph">At Billboard, our goal is to earn your business and become your single source for all your printing needs by providing you the highest quality offset.</span>
                     <div className="column-menu left">
                         <div className="row"><FiFacebook size={20}/></div>
                         <div className="row"><FiTwitter size={20}/></div>
@@ -16,9 +18,9 @@ function Footer(){
                 <div className="row">
                     <h4>Useful Links</h4>
                     <ul>
-                        <li><a href="/#">Log In</a></li>
-                        <li><a href="/#">Services</a></li>
-                        <li><a href="/#">Products</a></li>
+                        <li><Link to="/login">Log In</Link></li>
+                        <li><Link to="/services">Services</Link></li>
+                        <li><Link to="/products">Products</Link></li>
                     </ul>
                 </div>
                 <div className="row">
