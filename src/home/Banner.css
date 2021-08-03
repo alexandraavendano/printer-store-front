@@ -1,0 +1,12 @@
+.image-text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.image-text > :last-child {
+    margin: 5px;
+    max-width: 40%;
+    height: auto;
+}
