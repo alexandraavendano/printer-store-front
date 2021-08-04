@@ -7,10 +7,14 @@ class Signin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email : '',
-            password : '',
-            firstName: '',
-            lastName: '',
+            client : {
+                email : '',
+                password : '',
+                firstName: '',
+                lastName: '',
+            },
+            isCreated: false,
+            error: null
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -18,8 +22,21 @@ class Signin extends React.Component {
     }
 
     handleSubmit(event) {
-        fetch('http://localhost:8080/users/', { method: 'POST', body: JSON.stringify(this.state), headers: {'Content-Type': 'application/json'}})
-            .then(res =>  res.json().then( myJson => console.log(myJson)))
+        fetch('http://localhost:8080/users', { method: 'POST', body: JSON.stringify(this.state.client), headers: {'Content-Type': 'application/json'}})
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isCreated: true
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isCreated: false,
+                        error
+                    });
+                }
+            )
         event.preventDefault()
     }
 
@@ -27,9 +44,14 @@ class Signin extends React.Component {
         const name = event.target.name;
         const value = event.target.value;
 
-        this.setState(
-            {[name] : value}
-        )
+        this.setState(prevState => ({
+            client: {
+                ...prevState.client,
+                [name]: value
+            }
+        }))
+
+        event.preventDefault();
     }
 
     render() {
@@ -87,6 +109,7 @@ class Signin extends React.Component {
                             </form>
                         </div>
                     </div>
+                    <div>It was created: {this.state.isCreated.toString()}</div>
                 </div>
                 <Footer/>
             </div>
