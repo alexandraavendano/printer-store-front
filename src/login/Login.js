@@ -1,7 +1,8 @@
 import Header from '../common/Header'
 import Footer from '../common/Footer';
 import './Login.css';
-import React, {useState} from "react";
+import React from "react";
+import {Link} from "react-router-dom";
 
 class Login extends React.Component {
 
@@ -12,7 +13,7 @@ class Login extends React.Component {
             password : '',
             error: null,
             isLoaded: false,
-            items: []
+            clients: []
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -20,19 +21,17 @@ class Login extends React.Component {
     }
 
     handleSubmit(event) {
-        const fetchPromise = fetch("http://localhost:8080/users/email@test.com");
+        const id = this.state.email;
+        const fetchPromise = fetch("http://localhost:8080/users?id=" + id);
         fetchPromise
             .then(res => res.json())
             .then(
                 (result) => {
                     this.setState({
                         isLoaded: true,
-                        items: result
+                        clients: result
                     });
                 },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
                 (error) => {
                     this.setState({
                         isLoaded: true,
@@ -87,7 +86,8 @@ class Login extends React.Component {
                                 </form>
                             </div>
                         </div>
-                        <span>Welcome: ${this.state.items.email}</span>
+                        <div><Link to="/signin">Create and account</Link></div>
+                        <span>Welcome: ${this.state.clients.email}</span>
                     </div>
                     <Footer/>
                 </div>

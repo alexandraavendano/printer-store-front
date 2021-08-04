@@ -9,6 +9,7 @@ import App from './home/App';
 import Login from "./login/Login";
 import About from "./about/about";
 import EmptyComponent from "./emptyComponent/EmptyComponent2";
+import Signin from "./signin/signin";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.render(
                 <Route path="/products" component={EmptyComponent}/>}
                 <Route path="/services" component={EmptyComponent}/>}
                 <Route path="/cart" component={EmptyComponent}/>}
+                <Route path="/signin" component={Signin}/>}
             </Switch>
         </BrowserRouter>
     </React.StrictMode>,
