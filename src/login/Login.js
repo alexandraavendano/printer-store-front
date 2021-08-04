@@ -6,13 +6,13 @@ import {Link} from "react-router-dom";
 
 class Login extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             email : '',
             password : '',
             error: null,
-            isLoaded: false,
+            isClient: false,
             clients: []
         }
 
@@ -28,17 +28,18 @@ class Login extends React.Component {
             .then(
                 (result) => {
                     this.setState({
-                        isLoaded: true,
+                        isClient: true,
                         clients: result
                     });
                 },
                 (error) => {
                     this.setState({
-                        isLoaded: true,
+                        isClient: false,
                         error
                     });
                 }
             )
+        console.log(this.state.isClient);
         event.preventDefault();
     }
 
@@ -87,7 +88,9 @@ class Login extends React.Component {
                             </div>
                         </div>
                         <div><Link to="/signin">Create and account</Link></div>
-                        <span>Welcome: ${this.state.clients.email}</span>
+
+                        <span>Welcome: {this.state.clients.email}</span>
+                        <span>Are you in our database : {this.state.isClient.toString()}</span>
                     </div>
                     <Footer/>
                 </div>
