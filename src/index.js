@@ -4,18 +4,22 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {Route, Switch} from "react-router";
 import './index.css';
-import App from './home/App';
-import Header from "./common/Header";
-import Login from "./login/Login";
 import './style.scss';
+import App from './home/App';
+import Login from "./login/Login";
+import About from "./about/about";
+import EmptyComponent from "./emptyComponent/EmptyComponent2";
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
             <Switch>
                 <Route exact path={"/"} component={App}/>
-                <Route path="/about" component={Header}/>
-                <Route path="/login" component={Login}/>
+                <Route path="/about" component={About}/>
+                <Route path="/login" component={Login}/>}
+                <Route path="/products" component={EmptyComponent}/>}
+                <Route path="/services" component={EmptyComponent}/>}
+                <Route path="/cart" component={EmptyComponent}/>}
             </Switch>
         </BrowserRouter>
     </React.StrictMode>,

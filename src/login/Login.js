@@ -1,8 +1,6 @@
-import '../home/App.css'
 import Header from '../common/Header'
 import Footer from '../common/Footer';
 import './Login.css';
-import '../style.scss'
 
 function Login () {
     return (
