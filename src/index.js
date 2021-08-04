@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './home/App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {Route, Switch} from "react-router";
+import './index.css';
+import App from './home/App';
 import Header from "./common/Header";
+import Login from "./login/Login";
+import './style.scss';
 
 ReactDOM.render(
     <React.StrictMode>
@@ -13,6 +15,7 @@ ReactDOM.render(
             <Switch>
                 <Route exact path={"/"} component={App}/>
                 <Route path="/about" component={Header}/>
+                <Route path="/login" component={Login}/>
             </Switch>
         </BrowserRouter>
     </React.StrictMode>,

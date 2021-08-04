@@ -1,6 +1,7 @@
 .Footer {
     background-color: #282c34;
     color: white;
+    text-align: center;
 }
 
 .Footer hr {
@@ -32,13 +33,13 @@
     justify-content: space-around;
 }
 
-.row {
+.row-item {
     text-align: start;
     padding-top: 20px;
     padding-left: 10px;
 }
 
-.row > ul  {
+.row-item > ul  {
     list-style-type: none;
     margin-block: 0;
     padding-inline-start: 0;

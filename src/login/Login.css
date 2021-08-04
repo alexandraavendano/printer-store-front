@@ -1,0 +1,17 @@
+.logInContainer {
+    max-width: 540px !important;
+    align-self: center;
+}
+
+/*forms */
+form > button {
+    margin-bottom: 20px;
+}
+
+form > :first-child {
+    margin-top: 20px;
+}
+
+/*.bg-light {*/
+/*    background-color: #f8f9fa;*/
+/*}*/

@@ -6,9 +6,9 @@ import Banner from './Banner';
 
 function App() {
   return (
-    <div className="App">
+    <div>
         <Header />
-        <div className={"App-header"}>
+        <div className={"content-container"}>
             <Banner
                 message={"Advertisement"}
                 submessage={"Design + Print + Install + Delivery"}
