@@ -4,8 +4,7 @@ import Footer from '../common/Footer';
 function About () {
     return (
         <div>
-            <Header />
-            <div className="container">
+
                 <div className="content-container align-content-center">
                     <h3>About Us</h3>
                    <span>
@@ -23,8 +22,8 @@ function About () {
 
                     </span>
                 </div>
-            </div>
-            <Footer />
+
+
         </div>
     );
 }

@@ -1,20 +1,18 @@
-import Header from '../common/Header'
-import Footer from '../common/Footer';
+import './Login.css';
 import React from "react";
+import {Link} from "react-router-dom";
 
-class Signin extends React.Component {
+class Login extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            client : {
-                email : '',
-                password : '',
-                firstName: '',
-                lastName: '',
-            },
-            isCreated: false,
-            error: null
+            email : '',
+            password : '',
+            error: null,
+            isClient: false,
+            clients: [],
+            token : ''
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -22,45 +20,43 @@ class Signin extends React.Component {
     }
 
     handleSubmit(event) {
-        fetch('http://localhost:8080/users', { method: 'POST', body: JSON.stringify(this.state.client), headers: {'Content-Type': 'application/json'}})
+        const id = this.state.email;
+        const fetchPromise = fetch("http://localhost:8080/users?id=" + id);
+        fetchPromise
             .then(res => res.json())
             .then(
                 (result) => {
                     this.setState({
-                        isCreated: true
+                        isClient: true,
+                        clients: result
                     });
                 },
                 (error) => {
                     this.setState({
-                        isCreated: false,
+                        isClient: false,
                         error
                     });
                 }
             )
-        event.preventDefault()
+        console.log(this.state.isClient);
+        event.preventDefault();
     }
 
     handleChange(event){
         const name = event.target.name;
         const value = event.target.value;
 
-        this.setState(prevState => ({
-            client: {
-                ...prevState.client,
-                [name]: value
-            }
-        }))
-
-        event.preventDefault();
+        this.setState(
+            {[name] : value,}
+        )
     }
 
     render() {
         return (
             <div>
-                <Header/>
-                <div className={"content-container"}>
+
                     <div className="container logInContainer">
-                        <h3>Sign In</h3>
+                        <h3>Log In</h3>
                         <div className="container bg-light border">
                             <form onSubmit={this.handleSubmit}>
                                 <div className="mb-3">
@@ -71,26 +67,6 @@ class Signin extends React.Component {
                                            aria-describedby="emailHelp"
                                            name="email"
                                            value={this.state.email}
-                                           onChange={this.handleChange}
-                                    />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="inputFirstName" className="form-label">First Name</label>
-                                    <input type="text"
-                                           className="form-control"
-                                           id="inputFirstName"
-                                           name="firstName"
-                                           value={this.state.firstName}
-                                           onChange={this.handleChange}
-                                    />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="inputLastName" className="form-label">Last Name</label>
-                                    <input type="text"
-                                           className="form-control"
-                                           id="inputLastName"
-                                           name="lastName"
-                                           value={this.state.lastName}
                                            onChange={this.handleChange}
                                     />
                                 </div>
@@ -109,13 +85,14 @@ class Signin extends React.Component {
                             </form>
                         </div>
                     </div>
-                    <div>It was created: {this.state.isCreated.toString()}</div>
-                </div>
-                <Footer/>
+                    <div><Link to="/signin">Create and account</Link></div>
+
+                    <span>Welcome: {this.state.clients.email}</span>
+                    <span>Are you in our database : {this.state.isClient.toString()}</span>
             </div>
         )
     };
 
 }
 
-export default Signin;
+export default Login;
