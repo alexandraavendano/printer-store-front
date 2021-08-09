@@ -10,6 +10,9 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
 
+import './style.scss'
+import Orders from "./components/orders/Orders";
+
 function App() {
     return (
         <div>
@@ -26,6 +29,7 @@ function App() {
                                 <Route path="/services" component={EmptyComponent}/>}
                                 <Route path="/cart" component={EmptyComponent}/>}
                                 <Route path="/signin" component={Signin}/>}
+                                <Route path="/orders" component={Orders}/>}
                             </Switch>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
-import Header from '../common/Header'
-import Footer from '../common/Footer';
 import React from "react";
+import {Redirect} from "react-router";
+import Orders from "../orders/Orders";
 
 class Signin extends React.Component {
 
@@ -57,6 +57,7 @@ class Signin extends React.Component {
     render() {
         return (
             <div className="container logInContainer">
+                {this.state.isCreated ? <Redirect to="/orders" /> : <Orders/>}
                 <h3>Sign In</h3>
                 <div className="container bg-light border">
                     <form onSubmit={this.handleSubmit}>
