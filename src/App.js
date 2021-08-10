@@ -12,8 +12,14 @@ import Footer from "./components/common/Footer";
 
 import './style.scss'
 import Orders from "./components/orders/Orders";
+import {Redirect} from "react-router";
+import React, {useState} from "react";
+import useToken from "./components/login/useToken";
+
 
 function App() {
+    const {token, setToken} = useToken();
+
     return (
         <div>
             <BrowserRouter>
@@ -24,12 +30,16 @@ function App() {
                             <Switch>
                                 <Route exact path={"/"} component={Home}/>
                                 <Route path="/about" component={About}/>
-                                <Route path="/login" component={Login}/>}
-                                <Route path="/products" component={EmptyComponent}/>}
-                                <Route path="/services" component={EmptyComponent}/>}
-                                <Route path="/cart" component={EmptyComponent}/>}
-                                <Route path="/signin" component={Signin}/>}
-                                <Route path="/orders" component={Orders}/>}
+                                <Route path="/login">
+                                    {token ? <Redirect to="/orders" /> : <Login/>}
+                                </Route>
+                                <Route path="/products" component={EmptyComponent}/>
+                                <Route path="/services" component={EmptyComponent}/>
+                                <Route path="/cart" component={EmptyComponent}/>
+                                <Route path="/signin">
+                                    {token ? <Redirect to="/orders" /> : <Signin setToken={setToken}/>}
+                                </Route>
+                                <PrivateRoute path="/orders" component={Orders}/>
                             </Switch>
                         </div>
                     </div>
@@ -39,5 +49,17 @@ function App() {
         </div>
     );
 }
+
+function PrivateRoute({ children, ...rest }) {
+    const auth = useAuth()
+    return (
+        <Route {...rest} render={({ location }) =>
+            auth.user ? (children) :
+                (<Redirect to={{ pathname: '/login', state: { from: location } }} />)
+        }
+        />
+    )
+}
+
 
 export default App;

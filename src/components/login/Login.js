@@ -1,8 +1,9 @@
 import './Login.css';
 import React from "react";
 import {Link} from "react-router-dom";
-import {Redirect, Route} from "react-router";
-import Orders from "../orders/Orders";
+
+
+
 
 class Login extends React.Component {
 
@@ -12,7 +13,7 @@ class Login extends React.Component {
             email: '',
             password: '',
             error: null,
-            isClient: true,
+            isAuth: props.isAuth,
             clients: [],
             token: ''
         }
@@ -29,18 +30,18 @@ class Login extends React.Component {
             .then(
                 (result) => {
                     this.setState({
-                        isClient: true,
+                        isAuth: true,
                         clients: result
                     });
                 },
                 (error) => {
                     this.setState({
-                        isClient: false,
+                        isAuth: false,
                         error
                     });
                 }
             )
-        console.log(this.state.isClient);
+        console.log(this.state.isAuth);
         event.preventDefault();
     }
 
@@ -56,7 +57,6 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-                {this.state.isClient ? <Redirect to="/orders" /> : <Orders/>}
                 <div className="container logInContainer">
                     <h3>Log In</h3>
                     <div className="container bg-light border">

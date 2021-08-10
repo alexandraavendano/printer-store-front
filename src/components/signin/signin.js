@@ -13,7 +13,7 @@ class Signin extends React.Component {
                 firstName: '',
                 lastName: '',
             },
-            isCreated: false,
+            isAuth: props.isAuth,
             error: null
         }
 
@@ -25,14 +25,10 @@ class Signin extends React.Component {
         fetch('http://localhost:8080/users', { method: 'POST', body: JSON.stringify(this.state.client), headers: {'Content-Type': 'application/json'}})
             .then(res => res.json())
             .then(
-                (result) => {
-                    this.setState({
-                        isCreated: true
-                    });
-                },
+                (result) => {this.props.setToken()},
                 (error) => {
                     this.setState({
-                        isCreated: false,
+                        isAuth: false,
                         error
                     });
                 }
@@ -57,7 +53,6 @@ class Signin extends React.Component {
     render() {
         return (
             <div className="container logInContainer">
-                {this.state.isCreated ? <Redirect to="/orders" /> : <Orders/>}
                 <h3>Sign In</h3>
                 <div className="container bg-light border">
                     <form onSubmit={this.handleSubmit}>
