@@ -1,6 +1,4 @@
 import React from "react";
-import {Redirect} from "react-router";
-import Orders from "../orders/Orders";
 
 class Signin extends React.Component {
 
@@ -13,7 +11,6 @@ class Signin extends React.Component {
                 firstName: '',
                 lastName: '',
             },
-            isAuth: props.isAuth,
             error: null
         }
 
@@ -25,12 +22,11 @@ class Signin extends React.Component {
         fetch('http://localhost:8080/users', { method: 'POST', body: JSON.stringify(this.state.client), headers: {'Content-Type': 'application/json'}})
             .then(res => res.json())
             .then(
-                (result) => {this.props.setToken()},
+                (result) => {
+                    console.log("This is success");
+                    this.props.setToken('12345678');},
                 (error) => {
-                    this.setState({
-                        isAuth: false,
-                        error
-                    });
+                    console.log("This is an error");
                 }
             )
         event.preventDefault()
@@ -101,7 +97,7 @@ class Signin extends React.Component {
                         <button type="submit" className="btn btn-secondary ">Submit</button>
                     </form>
                 </div>
-                <div>It was created: {this.state.isCreated.toString()}</div>
+                <div>It was created: </div>
             </div>
         )
     };

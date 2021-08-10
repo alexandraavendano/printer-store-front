@@ -2,9 +2,6 @@ import './Login.css';
 import React from "react";
 import {Link} from "react-router-dom";
 
-
-
-
 class Login extends React.Component {
 
     constructor(props) {
@@ -13,7 +10,7 @@ class Login extends React.Component {
             email: '',
             password: '',
             error: null,
-            isAuth: props.isAuth,
+            isAuth: false,
             clients: [],
             token: ''
         }
@@ -29,16 +26,11 @@ class Login extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    this.setState({
-                        isAuth: true,
-                        clients: result
-                    });
-                },
+                    this.props.setToken('12345678');
+                }
+                ,
                 (error) => {
-                    this.setState({
-                        isAuth: false,
-                        error
-                    });
+                    console.log(error)
                 }
             )
         console.log(this.state.isAuth);
@@ -88,9 +80,6 @@ class Login extends React.Component {
                     </div>
                 </div>
                 <div><Link to="/signin">Create and account</Link></div>
-
-                <span>Welcome: {this.state.clients.email}</span>
-                <span>Are you in our database : {this.state.isClient.toString()}</span>
             </div>
         )
     };
