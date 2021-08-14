@@ -3,7 +3,7 @@ import './components/home/App.css';
 import About from "./components/about/about";
 import Login from "./components/login/Login";
 import EmptyComponent from "./components/emptyComponent/EmptyComponent2";
-import Signin from "./components/signin/signin";
+import Signup from "./components/signup/signup";
 import Home from "./components/home/Home";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Header from "./components/common/Header";
@@ -21,7 +21,6 @@ function App() {
             <BrowserRouter>
                 <div>
                     <Header/>
-                    <h3>This is the token : {token}</h3>
                     <div className="content-container">
                         <div className="container">
                             <Switch>
@@ -33,9 +32,7 @@ function App() {
                                 <Route path="/products" component={EmptyComponent}/>
                                 <Route path="/services" component={EmptyComponent}/>
                                 <Route path="/cart" component={EmptyComponent}/>
-                                <Route path="/signin">
-                                    {token ? <Redirect to="/orders" /> : <Signin setToken={setToken}/>}
-                                </Route>
+                                <Route path="/signup" component={Signup}/>
                             </Switch>
                         </div>
                     </div>

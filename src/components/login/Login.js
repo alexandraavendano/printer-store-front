@@ -1,6 +1,9 @@
 import './Login.css';
 import React from "react";
 import {Link} from "react-router-dom";
+import CustomAlert from "../common/customAlert";
+
+
 
 class Login extends React.Component {
 
@@ -10,9 +13,6 @@ class Login extends React.Component {
             email: '',
             password: '',
             error: null,
-            isAuth: false,
-            clients: [],
-            token: ''
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -20,20 +20,29 @@ class Login extends React.Component {
     }
 
     handleSubmit(event) {
-        const id = this.state.email;
-        const fetchPromise = fetch("http://localhost:8080/users?id=" + id);
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                    userName: this.state.email,
+                    password: this.state.password
+                }
+            )
+        }
+
+        const fetchPromise = fetch("http://localhost:8080/login", requestOptions);
         fetchPromise
             .then(res => res.json())
             .then(
                 (result) => {
-                    this.props.setToken('12345678');
-                }
-                ,
+                    sessionStorage.setItem("token", result.authorization);
+                    this.props.setToken(result.authorization);
+                },
                 (error) => {
-                    console.log(error)
+                    this.setState({error: true});
+                    console.log(error);
                 }
             )
-        console.log(this.state.isAuth);
         event.preventDefault();
     }
 
@@ -46,11 +55,13 @@ class Login extends React.Component {
         )
     }
 
+
     render() {
         return (
             <div>
                 <div className="container logInContainer">
                     <h3>Log In</h3>
+                    <CustomAlert error={this.state.error}/>
                     <div className="container bg-light border">
                         <form onSubmit={this.handleSubmit}>
                             <div className="mb-3">
@@ -78,12 +89,13 @@ class Login extends React.Component {
                             <button type="submit" className="btn btn-secondary ">Submit</button>
                         </form>
                     </div>
+                    <div>
+                        <Link to="/signup">Create Account</Link>
+                    </div>
                 </div>
-                <div><Link to="/signin">Create and account</Link></div>
             </div>
         )
     };
-
 }
 
 export default Login;
