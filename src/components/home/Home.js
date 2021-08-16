@@ -8,7 +8,7 @@ function Home() {
             <Banner
                 message={"Advertisement"}
                 submessage={"Design + Print + Install + Delivery"}
-                image={"designtools"}
+                image={"designtools.png"}
             />
             <hr/>
         </div>
