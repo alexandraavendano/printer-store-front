@@ -12,6 +12,6 @@ form > :first-child {
     margin-top: 20px;
 }
 
-.logInContainer > div:nth-child(3) {
+.logInContainer > div:nth-child(4) {
     text-align: center;
 }

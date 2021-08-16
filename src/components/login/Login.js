@@ -3,8 +3,6 @@ import React from "react";
 import {Link} from "react-router-dom";
 import CustomAlert from "../common/customAlert";
 
-
-
 class Login extends React.Component {
 
     constructor(props) {
@@ -12,7 +10,7 @@ class Login extends React.Component {
         this.state = {
             email: '',
             password: '',
-            error: null,
+            isError: null,
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -35,11 +33,11 @@ class Login extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    sessionStorage.setItem("token", result.authorization);
-                    this.props.setToken(result.authorization);
+                    localStorage.setItem("token", result.authorization);
+                    this.props.setToken(localStorage.getItem("token"));
                 },
                 (error) => {
-                    this.setState({error: true});
+                    this.setState({isError: true});
                     console.log(error);
                 }
             )
@@ -55,13 +53,15 @@ class Login extends React.Component {
         )
     }
 
-
     render() {
         return (
             <div>
                 <div className="container logInContainer">
                     <h3>Log In</h3>
-                    <CustomAlert error={this.state.error}/>
+                    <CustomAlert
+                        isError={this.state.isError}
+                        errorMessage={"Invalid credentials."}
+                    />
                     <div className="container bg-light border">
                         <form onSubmit={this.handleSubmit}>
                             <div className="mb-3">

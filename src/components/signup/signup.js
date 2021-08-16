@@ -1,6 +1,4 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import {Alert} from "bootstrap";
 import CustomAlert from "../common/customAlert";
 
 class Signup extends React.Component {
@@ -14,7 +12,7 @@ class Signup extends React.Component {
                 firstName: '',
                 lastName: '',
             },
-            isSuccess: null
+            isError: null
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -22,7 +20,7 @@ class Signup extends React.Component {
     }
 
     handleSubmit(event) {
-        let response = fetch('http://localhost:8080/users/signup', {
+        fetch('http://localhost:8080/users/signup', {
             method: 'POST',
             body: JSON.stringify(this.state.client),
             headers: {'Content-Type': 'application/json'}
@@ -32,10 +30,11 @@ class Signup extends React.Component {
                 return res.json()
             })
             .then(
-                (result) => this.setState({"isSuccess": true}),
+                () =>
+                    this.setState({"isError": false}),
                 (error) => {
-                    this.setState({"isSuccess": false})
-                    console.log("This is an error");
+                    this.setState({"isError": true})
+                    console.log(error);
                 }
             )
         event.preventDefault()
@@ -56,9 +55,13 @@ class Signup extends React.Component {
     }
 
     render() {
-        if (this.state.isSuccess) {
+        if (this.state.isError) {
             return (
-               <CustomAlert error={!this.state.isSuccess}/>
+                <CustomAlert
+                    isError={this.state.isError}
+                    successMessage={"User created! To access out application please log in"}
+                    errorMessage={"Something went wrong. Please refresh the page and try again."}
+                />
             )
         } else {
             return (

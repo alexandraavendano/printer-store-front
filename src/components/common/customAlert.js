@@ -1,9 +1,7 @@
-import {Link} from "react-router-dom";
-
 function ErrorAlert(props) {
     return (
         <div className="alert alert-danger" role="alert">
-            This is a danger alert—check it out!
+            <span>{props.message}</span>
         </div>
     )
 }
@@ -12,8 +10,7 @@ function SuccessAlert(props) {
     return (
         <div>
             <div className="alert alert-success" role="alert">
-                User created ! To access out application please follow the nex link: <Link to="/login">Log
-                in</Link>
+                <span>{props.message}</span>
             </div>
         </div>
     )
@@ -26,12 +23,12 @@ function NoneAlert(props) {
 }
 
 function CustomAlert(props) {
-    if(props.error == null){
+    if(props.isError == null){
         return <NoneAlert/>
-    } else if (!props.error) {
-        return <SuccessAlert message={""}/>
+    } else if (!props.isError) {
+        return <SuccessAlert message={props.successMessage}/>
     } else {
-        return  <ErrorAlert message={""}/>
+        return  <ErrorAlert message={props.errorMessage}/>
     }
 }
 
