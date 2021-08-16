@@ -2,7 +2,7 @@ import React from "react";
 import './Banner.css'
 
 function Banner(props) {
-    const image = require(`../images/${props.image}`).default;
+    const image = require(`../../images/${props.image}`).default;
     return (
         <div className="image-text">
             <div>
