@@ -16,9 +16,9 @@ function SuccessAlert(props) {
     )
 }
 
-function NoneAlert(props) {
+function NoneAlert() {
     return (
-        <div></div>
+        <div/>
     )
 }
 
