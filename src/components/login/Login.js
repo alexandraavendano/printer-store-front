@@ -28,8 +28,7 @@ class Login extends React.Component {
             )
         }
 
-        const fetchPromise = fetch("http://localhost:8080/login", requestOptions);
-        fetchPromise
+        fetch("http://localhost:8080/login", requestOptions)
             .then(res => res.json())
             .then(
                 (result) => {

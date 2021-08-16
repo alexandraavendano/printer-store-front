@@ -14,6 +14,7 @@ import React, {useState} from "react";
 import Orders from "./components/orders/Orders";
 import jwt_decode from 'jwt-decode';
 import NotFound from "./components/common/NotFound";
+import EmployeeDashboard from "./components/admin/createEmployee/employeeDashboard";
 
 function getRole() {
     try {
@@ -53,6 +54,9 @@ function App() {
                                 <Route path="/signup" component={Signup}/>
                                 <Route path="/orders">
                                     {token ? <Orders/> : <Redirect to="/login"/>}
+                                </Route>
+                                <Route path="/employees">
+                                    {role === "ROLE_ADMIN" ? <EmployeeDashboard/> : <Redirect to="/login"/>}
                                 </Route>
                                 <Route path="/logout">
                                     <LogOut setToken={setToken}/>
