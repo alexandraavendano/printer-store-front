@@ -35,4 +35,9 @@ ul.menu {
     padding-right: 15px;
 }
 
+.menu > div:nth-child(2) {
+    display: flex;
+}
+
+
 
