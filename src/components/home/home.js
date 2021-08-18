@@ -1,6 +1,7 @@
 import './App.css';
 
-import Banner from './Banner';
+import Banner from './banner';
+import ShowProducts from "../products/showProducts";
 
 function Home() {
     return (
@@ -10,6 +11,7 @@ function Home() {
                 submessage={"Design + Print + Install + Delivery"}
                 image={"designtools.png"}
             />
+            <ShowProducts category='Customizable'/>
             <hr/>
         </div>
     );

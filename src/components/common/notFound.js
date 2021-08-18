@@ -1,4 +1,4 @@
-import './NotFound.css';
+import './notFound.css';
 
 function NotFound() {
     const image = require(`../../images/404.gif`).default;

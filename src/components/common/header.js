@@ -1,4 +1,4 @@
-import './Header.css';
+import './header.css';
 import {BsPersonFill} from 'react-icons/bs'
 import {FaCartPlus} from 'react-icons/fa'
 import React from "react";

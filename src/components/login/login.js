@@ -1,4 +1,4 @@
-import './Login.css';
+import './login.css';
 import React from "react";
 import {Link} from "react-router-dom";
 import CustomAlert from "../common/customAlert";

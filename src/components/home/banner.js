@@ -1,5 +1,5 @@
 import React from "react";
-import './Banner.css'
+import './banner.css'
 
 function Banner(props) {
     const image = require(`../../images/${props.image}`).default;

@@ -1,20 +1,22 @@
 import './components/home/App.css';
 
 import About from "./components/about/about";
-import Login from "./components/login/Login";
-import EmptyComponent from "./components/emptyComponent/EmptyComponent2";
+import Login from "./components/login/login";
+import EmptyComponent from "./components/emptyComponent/emptyComponent";
 import Signup from "./components/signup/signup";
-import Home from "./components/home/Home";
+import Home from "./components/home/home";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Header from "./components/common/Header";
-import Footer from "./components/common/Footer";
+import Header from "./components/common/header";
+import Footer from "./components/common/footer";
 import './style.scss'
 import {Redirect} from "react-router";
 import React, {useState} from "react";
-import Orders from "./components/orders/Orders";
+import Orders from "./components/orders/orders";
 import jwt_decode from 'jwt-decode';
-import NotFound from "./components/common/NotFound";
+import NotFound from "./components/common/notFound";
 import EmployeeDashboard from "./components/admin/createEmployee/employeeDashboard";
+import ShowProducts from "./components/products/showProducts";
+import DetailedProduct from "./components/products/detailedProduct";
 
 function getRole() {
     try {
@@ -33,6 +35,7 @@ function LogOut(props) {
 
 function App() {
     const [token, setToken] = useState(localStorage.getItem("token"));
+    const [cart, setCart] = useState([]);
     let role = getRole();
 
     return (
@@ -48,8 +51,15 @@ function App() {
                                 <Route path="/login">
                                     {token ? <Redirect to="/orders"/> : <Login setToken={setToken}/>}
                                 </Route>
-                                <Route path="/products" component={EmptyComponent}/>
-                                <Route path="/services" component={EmptyComponent}/>
+                                <Route exact path="/products">
+                                    <ShowProducts category='Customizable'/>
+                                </Route>
+                                <Route path="/products/:id">
+                                    <DetailedProduct/>
+                                </Route>
+                                <Route path="/services">
+                                    <ShowProducts category='Service'/>
+                                </Route>
                                 <Route path="/cart" component={EmptyComponent}/>
                                 <Route path="/signup" component={Signup}/>
                                 <Route path="/orders">
