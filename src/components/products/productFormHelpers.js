@@ -43,6 +43,7 @@ export function DropMenuSimple(props) {
 }
 
 export function DropMenu(props) {
+
     if (props.array.length === 0) return (<div/>);
     else {
         return (

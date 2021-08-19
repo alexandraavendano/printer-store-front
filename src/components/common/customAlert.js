@@ -11,6 +11,7 @@ function SuccessAlert(props) {
         <div>
             <div className="alert alert-success" role="alert">
                 <span>{props.message}</span>
+                <a href={`${props.link.url}`} className="alert-link"> {props.link.title}</a>
             </div>
         </div>
     )
@@ -26,7 +27,7 @@ function CustomAlert(props) {
     if(props.isError == null){
         return <NoneAlert/>
     } else if (!props.isError) {
-        return <SuccessAlert message={props.successMessage}/>
+        return <SuccessAlert message={props.successMessage} link={props.link}/>
     } else {
         return  <ErrorAlert message={props.errorMessage}/>
     }

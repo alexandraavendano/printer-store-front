@@ -19,3 +19,13 @@
   color: #484848;
   width: 87%;
 }
+
+.products-container h3 {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.container {
+  margin: 15px;
+}

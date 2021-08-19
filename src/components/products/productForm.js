@@ -1,7 +1,7 @@
 import {DropMenu, DropMenuSimple, GroupButtons} from "./productFormHelpers";
 import {useState} from "react";
 import {CollapseDesign} from "./productDesign";
-import {addCart} from "../cart/cartHelper";
+import {addToCart} from "../cart/cartHelper";
 
 const sizes = ["1.7'x3", "2.5'x4", "4'x4'", "2.5'x10'", "2.5'x12", "4'x6"]
 const quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 25, 50, 100, 250]
@@ -12,15 +12,13 @@ function customizedProduct(product, quantity, size, material, structure, image, 
     const width = sizes[1];
     const imageData= new FormData();
 
-    Array.from(image).forEach((file, i) => {
-        imageData.append(i, file)
-    })
-
     const item = {
         id: product.id,
+        product: product,
         height: height,
         width: width,
         quantity: quantity,
+        url: URL.createObjectURL(image[0]),
         image: imageData,
         designIdeas: designIdeas,
         products: [
@@ -29,7 +27,8 @@ function customizedProduct(product, quantity, size, material, structure, image, 
             {id: 1}
         ]
     }
-    addCart(item);
+
+    addToCart(item);
     console.log(item)
 }
 

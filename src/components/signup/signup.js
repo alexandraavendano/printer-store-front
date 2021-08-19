@@ -24,20 +24,15 @@ class Signup extends React.Component {
             method: 'POST',
             body: JSON.stringify(this.state.client),
             headers: {'Content-Type': 'application/json'}
-        })
-            .then(res => {
-                if (res.status !== 200) return Promise.reject(new Error("Authentication error"));
-                return res.json()
-            })
-            .then(
-                () =>
-                    this.setState({"isError": false}),
-                (error) => {
-                    this.setState({"isError": true})
-                    console.log(error);
-                }
-            )
-        event.preventDefault()
+        }).then(res => {
+            if (res.status !== 200) return Promise.reject(new Error("Authentication error"));
+            return res.json()
+        }).then(
+            (_res) => this.setState({"isError": false}),
+            (error) => this.setState({"isError": true})
+        )
+
+        event.preventDefault();
     }
 
     handleChange(event) {
@@ -50,17 +45,16 @@ class Signup extends React.Component {
                 [name]: value
             }
         }))
-
-        event.preventDefault();
     }
 
     render() {
-        if (this.state.isError) {
+        if (this.state.isError !=null) {
             return (
                 <CustomAlert
                     isError={this.state.isError}
-                    successMessage={"User created! To access out application please log in"}
+                    successMessage={"User created! To access out application please "}
                     errorMessage={"Something went wrong. Please refresh the page and try again."}
+                    link={{"url": "/login", "title": "log in"}}
                 />
             )
         } else {
@@ -111,10 +105,9 @@ class Signup extends React.Component {
                                     onChange={this.handleChange}
                                 />
                             </div>
-                            <button type="submit" className="btn btn-secondary ">Submit</button>
+                            <button type="submit" className="btn btn-secondary" key={"123456789"}>Submit</button>
                         </form>
                     </div>
-
                 </div>
             )
         }

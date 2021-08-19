@@ -3,7 +3,8 @@ import './App.css';
 import Banner from './banner';
 import ShowProducts from "../products/showProducts";
 
-function Home() {
+function Home(props) {
+    props.setRedirectToCart(false)
     return (
         <div>
             <Banner

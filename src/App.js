@@ -17,6 +17,7 @@ import NotFound from "./components/common/notFound";
 import EmployeeDashboard from "./components/admin/createEmployee/employeeDashboard";
 import ShowProducts from "./components/products/showProducts";
 import ProductDetails from "./components/products/productDetails";
+import {Cart} from "./components/cart/cart";
 
 function getRole() {
     try {
@@ -46,7 +47,9 @@ function App() {
                     <div className="content-container">
                         <div className="container">
                             <Switch>
-                                <Route exact path={"/"} component={Home}/>
+                                <Route exact path={"/"} >
+                                    <Home setRedirectToCart={setRedirectToCart}/>
+                                </Route>
                                 <Route path="/about" component={About}/>
                                 <Route path="/login">
                                     {token ? <Redirect to="/orders"/> : <Login setToken={setToken}/>}
@@ -60,8 +63,9 @@ function App() {
                                 <Route path="/services">
                                     <ShowProducts category='Service'/>
                                 </Route>
-                                <Route path="/cart" component={EmptyComponent}/>
-                                <Route path="/cart" component={EmptyComponent}/>
+                                <Route path="/cart" >
+                                    <Cart/>
+                                </Route>
                                 <Route path="/signup" component={Signup}/>
                                 <Route path="/orders">
                                     {token ? <Orders/> : <Redirect to="/login"/>}

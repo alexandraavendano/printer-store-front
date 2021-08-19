@@ -17,30 +17,26 @@ export default function ShowProducts(props) {
                 distinct(products).map(types =>
                     <div key={types}>
                         <h3>{types}</h3>
-                        {
-                            products.filter(product => product.type.subType === types).map(product =>
-                                <div className="card mb-3" key={product.id}>
-                                    <div className="row no-gutters">
-                                        <div className="col-md-4">
-                                            <img src={getFirstImage(product.images)} className="card-img" alt={"name"}/>
-                                        </div>
-                                        <div className="col-md-8">
-                                            <div className="card-body product-container">
-                                                <h5 className="card-title">{product.name}</h5>
-                                                <p className="card-text">{product.description}</p>
-                                                {props.category === 'Customizable' ?
-                                                    <Link to={`products/${product.id}`}>
-                                                        <button type="button" className="btn btn-primary">
-                                                            More info
-                                                        </button>
-                                                    </Link> : <div/>
-                                                }
-                                            </div>
+                        <div className="card-group">
+                            {
+                                products.filter(product => product.type.subType === types).map(product =>
+                                    <div className="card" key={product.id}>
+                                        <img src={getFirstImage(product.images)} className="card-img" alt={"name"}/>
+                                        <div className="card-body product-container">
+                                            <h5 className="card-title">{product.name}</h5>
+                                            <p className="card-text">{product.description}</p>
+                                            {props.category === 'Customizable' ?
+                                                <Link to={`products/${product.id}`}>
+                                                    <button type="button" className="btn btn-primary">
+                                                        More info
+                                                    </button>
+                                                </Link> : <div/>
+                                            }
                                         </div>
                                     </div>
-                                </div>
-                            )
-                        }
+                                )
+                            }
+                        </div>
                     </div>
                 )}
         </div>
