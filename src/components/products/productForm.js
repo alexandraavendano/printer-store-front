@@ -1,16 +1,32 @@
 import {DropMenu, DropMenuSimple, GroupButtons} from "./productFormHelpers";
-import {useState} from "react";
+import React, {useState} from "react";
 import {CollapseDesign} from "./productDesign";
 import {addToCart} from "../cart/cartHelper";
+import CustomAlert from "../common/customAlert";
 
 const sizes = ["1.7'x3", "2.5'x4", "4'x4'", "2.5'x10'", "2.5'x12", "4'x6"]
 const quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 25, 50, 100, 250]
+
+function imageToObject(image) {
+    if(image == null){
+        return {};
+    } else {
+        const imageData = new FormData();
+        Array.from(image).forEach((file, i) => {
+            imageData.append(i, file)
+        })
+
+        return {
+            url: URL.createObjectURL(image[0]),
+            data: imageData,
+        };
+    }
+}
 
 function customizedProduct(product, quantity, size, material, structure, image, designIdeas) {
     const sizes = size.split("x");
     const height = sizes[0];
     const width = sizes[1];
-    const imageData= new FormData();
 
     const item = {
         id: product.id,
@@ -18,18 +34,16 @@ function customizedProduct(product, quantity, size, material, structure, image, 
         height: height,
         width: width,
         quantity: quantity,
-        url: URL.createObjectURL(image[0]),
-        image: imageData,
+        image: imageToObject(image),
         designIdeas: designIdeas,
         products: [
-            {id: material},
-            {id: structure},
-            {id: 1}
+            {id: material.toString()},
+            {id: structure.toString()},
+            {id: "1"}
         ]
     }
 
     addToCart(item);
-    console.log(item)
 }
 
 export function ProductCustomizationForm(props) {
@@ -42,13 +56,20 @@ export function ProductCustomizationForm(props) {
     const [structure, setStructures] = useState(structures.length === 0 ? -1 : structures[0].id);
     const [image, setImages] = useState(null);
     const [designIdeas, setDesignIdeas] = useState("");
+    const [isDesignValid, setIsDesignValid] = useState(null);
 
     return (
         <div className="product-configuration">
             <form onSubmit={
                 (e) => {
-                    customizedProduct(props.product, quantity, size, material, structure, image, designIdeas);
-                    props.setRedirectToCart(true);
+                    debugger
+                    if(image == null && designIdeas === "") {
+                        setIsDesignValid(false);
+                    } else {
+                        customizedProduct(props.product, quantity, size, material, structure, image, designIdeas);
+                        setIsDesignValid(true);
+                        props.setRedirectToCart(true);
+                    }
                     e.preventDefault();
                 }}>
                 <h5>Size</h5>
@@ -56,7 +77,7 @@ export function ProductCustomizationForm(props) {
                 <DropMenu array={materials} handleChange={setMaterial} title={"Materials"}/>
                 <DropMenu array={structures} handleChange={setStructures} title={"Structures"}/>
                 <DropMenuSimple array={quantities} handleChange={setQuantity} title={"Quantity"}/>
-                <CollapseDesign image={image} setImages={setImages} designIdeas={designIdeas} setDesignIdeas={setDesignIdeas}/>
+                <CollapseDesign image={image} setImages={setImages} designIdeas={designIdeas} setDesignIdeas={setDesignIdeas} isDesignValid={isDesignValid} setIsDesignValid={setIsDesignValid}/>
                 <button className="btn btn-primary" type="submit">Add cart</button>
             </form>
         </div>

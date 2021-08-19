@@ -71,6 +71,18 @@ button.btn:nth-child(7) {
     float: right;
 }
 
+.collapse-button-container {
+    display: flex;
+}
+
+.error-container {
+    border: solid rgba(210, 65, 65, 0.82);
+    border-radius: 6px;
+}
+
+.collapse-button-container > .btn {
+    flex: 1;
+}
 
 
 

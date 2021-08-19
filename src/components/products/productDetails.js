@@ -1,7 +1,6 @@
 import {useParams} from "react-router";
 import {useEffect, useState} from "react";
 import {getProductsById} from "../helpers/externalCalls";
-import ProductDesign from "./productDesign";
 import {ProductImages} from "./productFormHelpers";
 import {ProductCustomizationForm} from "./productForm";
 
@@ -19,17 +18,13 @@ function ProductInformation(props) {
 export default function ProductDetails(props) {
     let id = useParams();
     const [product, setProduct] = useState(null);
-
-
     useEffect(() => getProductsById(setProduct, id.id), [id.id])
 
     if (product != null) {
         return (
-            <div>
-                <div className="product-detail-container">
-                    <ProductImages product={product}/>
-                    <ProductInformation product={product} setRedirectToCart={props.setRedirectToCart}/>
-                </div>
+            <div className="product-detail-container">
+                <ProductImages product={product}/>
+                <ProductInformation product={product} setRedirectToCart={props.setRedirectToCart}/>
             </div>
         )
     } else {

@@ -2,7 +2,7 @@ import './components/home/App.css';
 
 import About from "./components/about/about";
 import Login from "./components/login/login";
-import EmptyComponent from "./components/emptyComponent/emptyComponent";
+// import EmptyComponent from "./components/emptyComponent/emptyComponent";
 import Signup from "./components/signup/signup";
 import Home from "./components/home/home";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
