@@ -1,5 +1,5 @@
 import {FiMapPin, FiPhone, FiMail, FiFacebook, FiTwitter, FiInstagram} from "react-icons/all";
-import './Footer.css'
+import './footer.css'
 import {Link} from "react-router-dom";
 
 function Footer(){

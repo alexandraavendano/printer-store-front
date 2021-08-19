@@ -1,4 +1,4 @@
-import './Header.css';
+import './header.css';
 import {BsPersonFill} from 'react-icons/bs'
 import {FaCartPlus} from 'react-icons/fa'
 import React from "react";
@@ -39,7 +39,7 @@ function AdminHeader() {
             <li><Link to="/admin/home">Home</Link></li>
             <li><Link to="/products">Client view</Link></li>
             <li><Link to="/admin/products">Product</Link></li>
-            <li><Link to="/admin/employees">Employees</Link></li>
+            <li><Link to="/employees">Employees</Link></li>
             <li className="icon"><Link to="/logout"><RiLogoutCircleRLine size={20}/></Link></li>
         </div>
     );
