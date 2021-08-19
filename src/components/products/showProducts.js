@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import './showProduct.css';
 import {Link} from "react-router-dom";
 import distinct from "../helpers/listHelper";
-import {getProducts, getProductsByType} from "../helpers/externalCalls";
+import {getProductsByType} from "../helpers/externalCalls";
 import {getFirstImage} from "../helpers/imageHelper";
 
 export default function ShowProducts(props) {
@@ -15,11 +15,11 @@ export default function ShowProducts(props) {
         <div className={"products-container"}>
             {
                 distinct(products).map(types =>
-                    <div>
+                    <div key={types}>
                         <h3>{types}</h3>
                         {
                             products.filter(product => product.type.subType === types).map(product =>
-                                <div className="card mb-3">
+                                <div className="card mb-3" key={product.id}>
                                     <div className="row no-gutters">
                                         <div className="col-md-4">
                                             <img src={getFirstImage(product.images)} className="card-img" alt={"name"}/>

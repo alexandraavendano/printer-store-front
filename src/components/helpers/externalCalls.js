@@ -11,8 +11,8 @@ export const getProducts = (setProducts) => {
         )
 }
 
-export const getProductsById = async (setProduct, id)  => {
-    await fetch(`http://localhost:8080/products/${id}`, simpleGET)
+export const getProductsById = (setProduct, id) => {
+    fetch(`http://localhost:8080/products/${id}`, simpleGET)
         .then(res => res.json())
         .then(
             (result) => setProduct(result),
@@ -20,8 +20,8 @@ export const getProductsById = async (setProduct, id)  => {
         )
 }
 
-export const getProductsByType =  async (setProduct, type) => {
-    await fetch(`http://localhost:8080/products?typeName=${type}`, simpleGET)
+export const getProductsByType = (setProduct, type) => {
+    fetch(`http://localhost:8080/products?typeName=${type}`, simpleGET)
         .then(res => res.json())
         .then(
             (result) => setProduct(result),

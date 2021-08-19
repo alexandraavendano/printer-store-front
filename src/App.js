@@ -35,7 +35,6 @@ function LogOut(props) {
 
 function App() {
     const [token, setToken] = useState(localStorage.getItem("token"));
-    const [cart, setCart] = useState([]);
     let role = getRole();
 
     return (
@@ -54,9 +53,7 @@ function App() {
                                 <Route exact path="/products">
                                     <ShowProducts category='Customizable'/>
                                 </Route>
-                                <Route path="/products/:id">
-                                    <DetailedProduct/>
-                                </Route>
+                                <Route path="/products/:id" component={DetailedProduct}/>
                                 <Route path="/services">
                                     <ShowProducts category='Service'/>
                                 </Route>

@@ -35,6 +35,12 @@ div > h5 {
     margin-top: 1em;
 }
 
+input.selected {
+    background-color: #2888a2;
+    border-color: #2888a2;
+    color: white;
+}
+
 button.btn  {
     background-color: #52b3d0;
     border-color: #52b3d0;

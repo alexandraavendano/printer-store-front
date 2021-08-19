@@ -14,9 +14,3 @@
 @import "~bootstrap/scss/forms/_input-group";
 
 @import "~bootstrap/dist/css/bootstrap.css";
-
-
-
-.btn-custom {
-  @include button-variant(#cece19, #222222, #cece19, #cece19, #cece19, #cece19);
-}
