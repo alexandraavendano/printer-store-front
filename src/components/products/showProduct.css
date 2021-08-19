@@ -54,6 +54,20 @@ button.btn:hover  {
 .product-configuration  button.btn {
     margin-top: 10px;
     margin-bottom: 15px;
+    /*float: right;*/
+}
+
+.product-configuration > form:nth-child(1) > div:nth-child(7) > div:nth-child(1) {
+    margin-top: 30px;
+}
+
+button.btn:nth-child(1) {
+    margin-right: 15px;
+}
+
+button.btn:nth-child(7) {
+    background-color: #6c757d;
+    border-color: #6c757d;
     float: right;
 }
 

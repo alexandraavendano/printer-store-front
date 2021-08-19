@@ -2,7 +2,7 @@ const simpleGET = {
     method: 'GET'
 }
 
-export const getProducts = (setProducts) => {
+export function getProducts(setProducts) {
     fetch(`http://localhost:8080/products/all`, simpleGET)
         .then(res => res.json())
         .then(
@@ -11,7 +11,7 @@ export const getProducts = (setProducts) => {
         )
 }
 
-export const getProductsById = (setProduct, id) => {
+export function  getProductsById (setProduct, id) {
     fetch(`http://localhost:8080/products/${id}`, simpleGET)
         .then(res => res.json())
         .then(
@@ -20,7 +20,7 @@ export const getProductsById = (setProduct, id) => {
         )
 }
 
-export const getProductsByType = (setProduct, type) => {
+export function getProductsByType (setProduct, type) {
     fetch(`http://localhost:8080/products?typeName=${type}`, simpleGET)
         .then(res => res.json())
         .then(

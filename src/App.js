@@ -16,7 +16,7 @@ import jwt_decode from 'jwt-decode';
 import NotFound from "./components/common/notFound";
 import EmployeeDashboard from "./components/admin/createEmployee/employeeDashboard";
 import ShowProducts from "./components/products/showProducts";
-import DetailedProduct from "./components/products/detailedProduct";
+import ProductDetails from "./components/products/productDetails";
 
 function getRole() {
     try {
@@ -35,6 +35,7 @@ function LogOut(props) {
 
 function App() {
     const [token, setToken] = useState(localStorage.getItem("token"));
+    const [redirectToCart, setRedirectToCart] = useState(false);
     let role = getRole();
 
     return (
@@ -53,10 +54,13 @@ function App() {
                                 <Route exact path="/products">
                                     <ShowProducts category='Customizable'/>
                                 </Route>
-                                <Route path="/products/:id" component={DetailedProduct}/>
+                                <Route path="/products/:id">
+                                    {redirectToCart ? <Redirect to="/cart"/> : <ProductDetails setRedirectToCart={setRedirectToCart}/>}
+                                </Route>
                                 <Route path="/services">
                                     <ShowProducts category='Service'/>
                                 </Route>
+                                <Route path="/cart" component={EmptyComponent}/>
                                 <Route path="/cart" component={EmptyComponent}/>
                                 <Route path="/signup" component={Signup}/>
                                 <Route path="/orders">
