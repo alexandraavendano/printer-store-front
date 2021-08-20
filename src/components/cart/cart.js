@@ -87,8 +87,7 @@ function Prices(props) {
 
 export function Cart() {
     const items = getCartItems();
-    debugger
-    if (items.length === 0) {
+    if (items.length === 0 || items == null) {
         return (
             <CustomAlert
                 isError={false}
