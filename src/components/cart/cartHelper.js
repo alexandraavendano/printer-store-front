@@ -1,3 +1,7 @@
+export function setCart(items) {
+    localStorage.setItem("cart", JSON.stringify(items));
+}
+
 export function addToCart(item) {
     let cart = localStorage.getItem("cart");
 
@@ -10,7 +14,7 @@ export function addToCart(item) {
         updatedCart = parsedCART
     }
 
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    setCart(updatedCart);
 }
 
 export function getCartItems() {
@@ -18,3 +22,8 @@ export function getCartItems() {
     return parsedCart == null ? [] : parsedCart;
 }
 
+export function deleteItem(items, itemIndexToDelete) {
+    const updatedItems = items.filter((item, index) => index !== itemIndexToDelete);
+    setCart(updatedItems);
+    return updatedItems;
+}

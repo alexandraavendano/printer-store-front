@@ -1,27 +1,38 @@
-import {getCartItems} from "./cartHelper";
+import {deleteItem, getCartItems} from "./cartHelper";
 import './cart.css';
 import CustomAlert from "../common/customAlert";
 import React, {useState} from "react";
 import {getSrc} from "../helpers/imageHelper";
 
-function getPrice(item){
-    let price;
-    price = item.product.customizable()
+function getCustomizableObjects(item) {
+    return item.product.customizable.filter(c => item.products.map(p => p.id).includes(c.id.toString()));
+}
+
+function getPrice(item) {
+    const customizable = getCustomizableObjects(item);
+    return getPriceBy(item, customizable);
+}
+
+function getPriceBy(item, customizable) {
+    let unitPrice = item.product.price;
+    let customizablePrice =  customizable.map(c => c.price).reduce((acc, actual) => acc + actual);                      // Customizable are how much each addition is going to cost more.
+
+    return unitPrice + customizablePrice;
 }
 
 function ItemDetails(props) {
     const item = props.item;
     const imageSrc = item.image.url == null ? getSrc(item.product.images[0]) : item.image.url;
-    const customizable = item.product.customizable.filter(c => item.products.map(p => p.id).includes(c.id.toString()));
+    const customizable = getCustomizableObjects(item);
     const removeItem = (e) => {
-        props.setItems(props.items.filter((item, index) => index === props.index ))
+        props.setItems(deleteItem(props.items, props.index))
         e.preventDefault();
     }
 
     return (
         <div key={props.index} className="card mb-3">
             <div className="row g-0">
-                <div className="col-md-4"> <img src={imageSrc} className="img-fluid rounded-start"/> </div>
+                <div className="col-md-4"><img src={imageSrc} className="img-fluid rounded-start"/></div>
                 <div className="col-md-8">
                     <div className="card-body">
                         <h3 className="card-title">{item.product.name}</h3><br/>
@@ -44,7 +55,8 @@ function ItemDetails(props) {
                         </p>
                         <div className="row">
                             <div className="col-8">
-                                <button type="button" className="btn btn-secondary btn-sm" onClick={ (e) => removeItem(e)}>Delete</button>
+                                <button type="button" className="btn btn-secondary btn-sm" onClick={(e) => removeItem(e)}>Delete
+                                </button>
                             </div>
                             <div className="col-4">
                                 <strong>USD ${item.product.price}</strong>
@@ -62,14 +74,15 @@ function Price(props) {
         <li className="list-group-item">
             <div className="row">
                 <div className="col-lg-8 col-md-6 col-sm-6 col-8"> {props.item.product.name} </div>
-                <div className="col-lg-4 col-md-6 col-sm-6 col-4"> ${props.item.product.price * props.item.quantity} </div>
+                <div
+                    className="col-lg-4 col-md-6 col-sm-6 col-4"> ${props.item.product.price * props.item.quantity} </div>
             </div>
         </li>
     )
 }
 
-function Total(props){
-    return(
+function Total(props) {
+    return (
         <li className={"list-group"}>
             <div className="row">
                 <div className="col-lg-5 col-md-2 col-sm-2 col-4"/>
@@ -112,7 +125,7 @@ export function Cart() {
                     <div className="row justify-content-md-center">
                         <div className="col-sm-8">
                             {items.map((item, index) =>
-                                <ItemDetails item={item} setItems={setItems} index={index}/>
+                                <ItemDetails item={item} items={items} setItems={setItems} index={index}/>
                             )}
                         </div>
                         <div className="col-sm-4">
@@ -122,5 +135,6 @@ export function Cart() {
                     </div>
                 </div>
             </div>
-        )}
+        )
+    }
 }
