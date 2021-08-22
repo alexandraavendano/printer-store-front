@@ -31,7 +31,7 @@ function ItemDetails(props) {
                 <div className="col-md-4"><img src={imageSrc} className="img-fluid rounded-start"/></div>
                 <div className="col-md-8">
                     <div className="card-body">
-                        <h3 className="card-title">{item.product.name}</h3><br/>
+                        <h3 className="card-title">{item.name}</h3><br/>
                         <p className="card-text">
                             <div className="row align-items-center">
                                 <div className="col">

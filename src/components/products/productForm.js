@@ -34,7 +34,7 @@ function customizedProduct(product, quantity, size, material, structure, image, 
 
     const item = {
         id: product.id,
-        product: product,
+        name: product.name,
         height: height,
         width: width,
         quantity: quantity,
@@ -46,7 +46,6 @@ function customizedProduct(product, quantity, size, material, structure, image, 
         ]
     }
 
-    debugger
     addToCart(item);
 }
 
