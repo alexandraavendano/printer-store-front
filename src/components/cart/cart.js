@@ -14,10 +14,14 @@ function getPrice(item) {
 }
 
 function getPriceBy(item, customizable) {
-    let unitPrice = item.product.price;
+    let unitPrice = item.product.price * item.quantity;
     let customizablePrice =  customizable.map(c => c.price).reduce((acc, actual) => acc + actual);                      // Customizable are how much each addition is going to cost more.
 
     return unitPrice + customizablePrice;
+}
+
+function totalPrice(items) {
+    return items.map(item => getPrice(item)).reduce((acc, actual) => acc + actual);
 }
 
 function ItemDetails(props) {
@@ -59,7 +63,7 @@ function ItemDetails(props) {
                                 </button>
                             </div>
                             <div className="col-4">
-                                <strong>USD ${item.product.price}</strong>
+                                <strong>USD ${getPrice(props.item)}</strong>
                             </div>
                         </div>
                     </div>
@@ -75,7 +79,7 @@ function Price(props) {
             <div className="row">
                 <div className="col-lg-8 col-md-6 col-sm-6 col-8"> {props.item.product.name} </div>
                 <div
-                    className="col-lg-4 col-md-6 col-sm-6 col-4"> ${props.item.product.price * props.item.quantity} </div>
+                    className="col-lg-4 col-md-6 col-sm-6 col-4"> ${getPrice(props.item)} </div>
             </div>
         </li>
     )
@@ -94,14 +98,16 @@ function Total(props) {
 }
 
 function Prices(props) {
+    const subtotal = totalPrice(props.items);
+    const total = Math.round((subtotal * 1.10 + Number.EPSILON) * 100) / 100;
     return (
         <ul className="list-group list-group-flush">
             {props.items.map(item =>
                 <Price item={item}/>
             )}
             <li className="list-group-item">
-                <Total title={"Subtotal"} amount={1000}/>
-                <Total title={"Total"} amount={1000}/>
+                <Total title={"Subtotal"} amount={subtotal}/>
+                <Total title={"Total"} amount={total}/>
             </li>
         </ul>
     )
