@@ -4,30 +4,22 @@ import CustomAlert from "../common/customAlert";
 import React, {useState} from "react";
 import {getSrc} from "../helpers/imageHelper";
 
-function getCustomizableObjects(item) {
-    return item.product.customizable.filter(c => item.products.map(p => p.id).includes(c.id.toString()));
-}
 
 function getPrice(item) {
-    const customizable = getCustomizableObjects(item);
-    return getPriceBy(item, customizable);
-}
-
-function getPriceBy(item, customizable) {
     let unitPrice = item.product.price * item.quantity;
-    let customizablePrice =  customizable.map(c => c.price).reduce((acc, actual) => acc + actual);                      // Customizable are how much each addition is going to cost more.
+    let customizablePrice =  item.customizations.map(c => c.price).reduce((acc, actual) => acc + actual);                      // Customizable are how much each addition is going to cost more.
 
     return unitPrice + customizablePrice;
 }
 
-function totalPrice(items) {
+function getSubTotal(items) {
     return items.map(item => getPrice(item)).reduce((acc, actual) => acc + actual);
 }
 
 function ItemDetails(props) {
     const item = props.item;
     const imageSrc = item.image.url == null ? getSrc(item.product.images[0]) : item.image.url;
-    const customizable = getCustomizableObjects(item);
+    const customizations = item.customizations;
     const removeItem = (e) => {
         props.setItems(deleteItem(props.items, props.index))
         e.preventDefault();
@@ -50,7 +42,7 @@ function ItemDetails(props) {
                                         <div>Uploaded Design</div>}<br/>
                                 </div>
                                 <div className="col">
-                                    {customizable.map(additional =>
+                                    {customizations.map(additional =>
                                         <div key={additional.id}>
                                             <strong>{additional.type.subType}:</strong> {additional.name}</div>
                                     )}
@@ -59,7 +51,7 @@ function ItemDetails(props) {
                         </p>
                         <div className="row">
                             <div className="col-8">
-                                <button type="button" className="btn btn-secondary btn-sm" onClick={(e) => removeItem(e)}>Delete
+                                <button type="button" className="btn btn-secondary bold-button btn-sm" onClick={(e) => removeItem(e)}>Delete
                                 </button>
                             </div>
                             <div className="col-4">
@@ -98,7 +90,7 @@ function Total(props) {
 }
 
 function Prices(props) {
-    const subtotal = totalPrice(props.items);
+    const subtotal = getSubTotal(props.items);
     const total = Math.round((subtotal * 1.10 + Number.EPSILON) * 100) / 100;
     return (
         <ul className="list-group list-group-flush">
@@ -115,7 +107,9 @@ function Prices(props) {
 
 export function Cart() {
     const [items, setItems] = useState(getCartItems);
-    if (items.length === 0 || items == null) {
+    const isEmpty = items.length === 0 || items == null
+
+    if (isEmpty) {
         return (
             <CustomAlert
                 isError={false}
@@ -137,6 +131,9 @@ export function Cart() {
                         <div className="col-sm-4">
                             <h2>Summary</h2>
                             <Prices items={items}/>
+                            <div className="d-grid gap-2">
+                                <button className="btn " type="button">Check out</button>
+                            </div>
                         </div>
                     </div>
                 </div>

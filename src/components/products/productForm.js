@@ -2,7 +2,6 @@ import {DropMenu, DropMenuSimple, GroupButtons} from "./productFormHelpers";
 import React, {useState} from "react";
 import {CollapseDesign} from "./productDesign";
 import {addToCart} from "../cart/cartHelper";
-import CustomAlert from "../common/customAlert";
 
 const sizes = ["1.7'x3", "2.5'x4", "4'x4'", "2.5'x10'", "2.5'x12", "4'x6"]
 const quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 25, 50, 100, 250]
@@ -23,6 +22,11 @@ function imageToObject(image) {
     }
 }
 
+function getCustomizableObject(product, id) {
+    return product.customizable.find(c => c.id === id);
+}
+
+//TODO: Add design to the customizations if the seign is not ready.
 function customizedProduct(product, quantity, size, material, structure, image, designIdeas) {
     const sizes = size.split("x");
     const height = sizes[0];
@@ -36,13 +40,13 @@ function customizedProduct(product, quantity, size, material, structure, image, 
         quantity: quantity,
         image: imageToObject(image),
         designIdeas: designIdeas,
-        products: [
-            {id: material.toString()},
-            {id: structure.toString()},
-            {id: "1"}
+        customizations: [
+            getCustomizableObject(product, material),
+            getCustomizableObject(product, structure)
         ]
     }
 
+    debugger
     addToCart(item);
 }
 
@@ -62,7 +66,6 @@ export function ProductCustomizationForm(props) {
         <div className="product-configuration">
             <form onSubmit={
                 (e) => {
-                    debugger
                     if(image == null && designIdeas === "") {
                         setIsDesignValid(false);
                     } else {
@@ -78,7 +81,9 @@ export function ProductCustomizationForm(props) {
                 <DropMenu array={structures} handleChange={setStructures} title={"Structures"}/>
                 <DropMenuSimple array={quantities} handleChange={setQuantity} title={"Quantity"}/>
                 <CollapseDesign image={image} setImages={setImages} designIdeas={designIdeas} setDesignIdeas={setDesignIdeas} isDesignValid={isDesignValid} setIsDesignValid={setIsDesignValid}/>
-                <button className="btn btn-primary" type="submit">Add cart</button>
+                <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button className="bold-button btn btn-primary" type="submit">Add cart</button>
+                </div>
             </form>
         </div>
     )

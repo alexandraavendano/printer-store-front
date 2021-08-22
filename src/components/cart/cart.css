@@ -9,3 +9,7 @@
 .alignRight {
     text-align: right;
 }
+
+.d-grid > button:first-child {
+    margin-top: 25px;
+}

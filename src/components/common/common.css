@@ -1,0 +1,22 @@
+button.btn  {
+    background-color: #52b3d0;
+    border-color: #52b3d0;
+    color: white;
+}
+
+button.bold-button {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+button.bold-button:hover {
+    background-color: #52b3d0;
+    border-color: #52b3d0;
+    color: white;
+}
+
+button.btn:hover  {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}

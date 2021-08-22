@@ -43,13 +43,12 @@ export function DropMenuSimple(props) {
 }
 
 export function DropMenu(props) {
-
     if (props.array.length === 0) return (<div/>);
     else {
         return (
             <div>
                 <label>{props.title}</label>
-                <select className="form-select form-select-sm" onChange={e => props.handleChange(e.target.value)}>
+                <select className="form-select form-select-sm" onChange={e => props.handleChange(parseInt(e.target.value))}>
                     {props.array.map(elm =>
                         <option key={elm.id} value={elm.id}>{elm.name}</option>
                     )}

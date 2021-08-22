@@ -17,6 +17,7 @@ import EmployeeDashboard from "./components/admin/createEmployee/employeeDashboa
 import ShowProducts from "./components/products/showProducts";
 import ProductDetails from "./components/products/productDetails";
 import {Cart} from "./components/cart/cart";
+import "./components/common/common.css";
 
 function getRole() {
     try {
