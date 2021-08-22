@@ -10,8 +10,8 @@ function SuccessAlert(props) {
     return (
         <div>
             <div className="alert alert-success" role="alert">
-                <span>{props.message}</span>
-                <a href={`${props.link.url}`} className="alert-link"> {props.link.title}</a>
+                <span>{props.message} &nbsp;
+                <a href={`${props.link.url}`} className="alert-link">{props.link.title}</a></span>
             </div>
         </div>
     )

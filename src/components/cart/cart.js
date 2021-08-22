@@ -6,7 +6,7 @@ import {getSrc} from "../helpers/imageHelper";
 
 
 function getPrice(item) {
-    let unitPrice = item.product.price * item.quantity;
+    let unitPrice = item.price * item.quantity;
     let customizablePrice =  item.customizations.map(c => c.price).reduce((acc, actual) => acc + actual);                      // Customizable are how much each addition is going to cost more.
 
     return unitPrice + customizablePrice;
@@ -18,7 +18,8 @@ function getSubTotal(items) {
 
 function ItemDetails(props) {
     const item = props.item;
-    const imageSrc = item.image.url == null ? getSrc(item.product.images[0]) : item.image.url;
+    debugger
+    const imageSrc = item.image.url == null ? getSrc(item.originalImage) : item.image.url;
     const customizations = item.customizations;
     const removeItem = (e) => {
         props.setItems(deleteItem(props.items, props.index))
@@ -69,7 +70,7 @@ function Price(props) {
     return (
         <li className="list-group-item">
             <div className="row">
-                <div className="col-lg-8 col-md-6 col-sm-6 col-8"> {props.item.product.name} </div>
+                <div className="col-lg-8 col-md-6 col-sm-6 col-8"> {props.item.name} </div>
                 <div
                     className="col-lg-4 col-md-6 col-sm-6 col-4"> ${getPrice(props.item)} </div>
             </div>
@@ -132,7 +133,7 @@ export function Cart() {
                             <h2>Summary</h2>
                             <Prices items={items}/>
                             <div className="d-grid gap-2">
-                                <button className="btn " type="button">Check out</button>
+                                <a className="btn btn-primary" href="/orders" role="button">Check out!</a>
                             </div>
                         </div>
                     </div>

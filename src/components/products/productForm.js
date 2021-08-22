@@ -35,6 +35,8 @@ function customizedProduct(product, quantity, size, material, structure, image, 
     const item = {
         id: product.id,
         name: product.name,
+        price: product.price,
+        originalImage: product.images[0],
         height: height,
         width: width,
         quantity: quantity,
