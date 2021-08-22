@@ -1,24 +1,30 @@
 import {getCartItems} from "./cartHelper";
 import './cart.css';
 import CustomAlert from "../common/customAlert";
-import React from "react";
+import React, {useState} from "react";
 import {getSrc} from "../helpers/imageHelper";
+
+function getPrice(item){
+    let price;
+    price = item.product.customizable()
+}
 
 function ItemDetails(props) {
     const item = props.item;
     const imageSrc = item.image.url == null ? getSrc(item.product.images[0]) : item.image.url;
     const customizable = item.product.customizable.filter(c => item.products.map(p => p.id).includes(c.id.toString()));
+    const removeItem = (e) => {
+        props.setItems(props.items.filter((item, index) => index === props.index ))
+        e.preventDefault();
+    }
 
     return (
-        <div key={item} className="card mb-3">
+        <div key={props.index} className="card mb-3">
             <div className="row g-0">
-                <div className="col-md-4">
-                    <img src={imageSrc} className="img-fluid rounded-start"/>
-                </div>
+                <div className="col-md-4"> <img src={imageSrc} className="img-fluid rounded-start"/> </div>
                 <div className="col-md-8">
                     <div className="card-body">
-                        <h3 className="card-title">{item.product.name}</h3>
-                        <br/>
+                        <h3 className="card-title">{item.product.name}</h3><br/>
                         <p className="card-text">
                             <div className="row align-items-center">
                                 <div className="col">
@@ -37,8 +43,12 @@ function ItemDetails(props) {
                             </div>
                         </p>
                         <div className="row">
-                            <div className="col-8"><a href="#" className="card-link">Delete</a></div>
-                            <div className="col-4"><strong>USD ${item.product.price}</strong></div>
+                            <div className="col-8">
+                                <button type="button" className="btn btn-secondary btn-sm" onClick={ (e) => removeItem(e)}>Delete</button>
+                            </div>
+                            <div className="col-4">
+                                <strong>USD ${item.product.price}</strong>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -52,8 +62,7 @@ function Price(props) {
         <li className="list-group-item">
             <div className="row">
                 <div className="col-lg-8 col-md-6 col-sm-6 col-8"> {props.item.product.name} </div>
-                <div
-                    className="col-lg-4 col-md-6 col-sm-6 col-4"> ${props.item.product.price * props.item.quantity} </div>
+                <div className="col-lg-4 col-md-6 col-sm-6 col-4"> ${props.item.product.price * props.item.quantity} </div>
             </div>
         </li>
     )
@@ -86,14 +95,15 @@ function Prices(props) {
 }
 
 export function Cart() {
-    const items = getCartItems();
+    const [items, setItems] = useState(getCartItems);
     if (items.length === 0 || items == null) {
         return (
             <CustomAlert
                 isError={false}
                 successMessage={"Wow, such empty... Try to add some products first!"}
                 link={{"url": "/products", "title": "Check out our products"}}
-            />)
+            />
+        )
     } else {
         return (
             <div className="cart-list">
@@ -101,8 +111,8 @@ export function Cart() {
                 <div className="container">
                     <div className="row justify-content-md-center">
                         <div className="col-sm-8">
-                            {items.map(item =>
-                                <ItemDetails item={item}/>
+                            {items.map((item, index) =>
+                                <ItemDetails item={item} setItems={setItems} index={index}/>
                             )}
                         </div>
                         <div className="col-sm-4">
@@ -112,6 +122,5 @@ export function Cart() {
                     </div>
                 </div>
             </div>
-        )
-    }
+        )}
 }
