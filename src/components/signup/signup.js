@@ -59,7 +59,7 @@ class Signup extends React.Component {
             )
         } else {
             return (
-                <div className="container logInContainer">
+                <div className="container container-medium">
                     <h3>Sign Up</h3>
                     <div className="container bg-light border">
                         <form onSubmit={this.handleSubmit}>

@@ -54,43 +54,41 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="container logInContainer">
-                    <h3>Log In</h3>
-                    <CustomAlert
-                        isError={this.state.isError}
-                        errorMessage={"Invalid credentials."}
-                    />
-                    <div className="container bg-light border">
-                        <form onSubmit={this.handleSubmit}>
-                            <div className="mb-3">
-                                <label htmlFor="inputEmail" className="form-label">Email address</label>
-                                <input type="email"
-                                       className="form-control"
-                                       id="inputEmail"
-                                       aria-describedby="emailHelp"
-                                       name="email"
-                                       value={this.state.email}
-                                       onChange={this.handleChange}
-                                />
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="inputPassword" className="form-label">Password</label>
-                                <input
-                                    type="password"
-                                    className="form-control"
-                                    id="inputPassword"
-                                    name="password"
-                                    value={this.state.password}
-                                    onChange={this.handleChange}
-                                />
-                            </div>
-                            <button type="submit" className="btn btn-secondary ">Submit</button>
-                        </form>
-                    </div>
-                    <div>
-                        <Link to="/signup">Create Account</Link>
-                    </div>
+            <div className="container container-medium">
+                <h3>Log In</h3>
+                <CustomAlert
+                    isError={this.state.isError}
+                    errorMessage={"Invalid credentials."}
+                />
+                <div className="container bg-light border">
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="mb-3">
+                            <label htmlFor="inputEmail" className="form-label">Email address</label>
+                            <input type="email"
+                                   className="form-control"
+                                   id="inputEmail"
+                                   aria-describedby="emailHelp"
+                                   name="email"
+                                   value={this.state.email}
+                                   onChange={this.handleChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="inputPassword" className="form-label">Password</label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                id="inputPassword"
+                                name="password"
+                                value={this.state.password}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <button type="submit" className="btn btn-secondary ">Submit</button>
+                    </form>
+                </div>
+                <div>
+                    <Link to="/signup">Create Account</Link>
                 </div>
             </div>
         )

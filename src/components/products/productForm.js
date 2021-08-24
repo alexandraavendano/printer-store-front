@@ -63,19 +63,20 @@ export function ProductCustomizationForm(props) {
     const [designIdeas, setDesignIdeas] = useState("");
     const [isDesignValid, setIsDesignValid] = useState(null);
 
+    const onSubmit = (e) => {
+        if(image == null && designIdeas === "") {
+            setIsDesignValid(false);
+        } else {
+            customizedProduct(props.product, quantity, size, material, structure, image, designIdeas);
+            setIsDesignValid(true);
+            props.setRedirectToCart(true);
+        }
+        e.preventDefault();
+    }
+
     return (
         <div className="product-configuration">
-            <form onSubmit={
-                (e) => {
-                    if(image == null && designIdeas === "") {
-                        setIsDesignValid(false);
-                    } else {
-                        customizedProduct(props.product, quantity, size, material, structure, image, designIdeas);
-                        setIsDesignValid(true);
-                        props.setRedirectToCart(true);
-                    }
-                    e.preventDefault();
-                }}>
+            <form onSubmit={(e) => onSubmit(e)}>
                 <h5>Size</h5>
                 <GroupButtons array={sizes} handleChange={setSize} selected={size}/>
                 <DropMenu array={materials} handleChange={setMaterial} title={"Materials"}/>

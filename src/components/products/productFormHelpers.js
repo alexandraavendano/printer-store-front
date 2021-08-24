@@ -29,16 +29,34 @@ export function GroupButtons(props) {
     )
 }
 
+export function DropMenuLabelInLine(props) {
+    if (props.array.length === 0) return (<div/>);
+    else {
+        return (
+            <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="inputGroupSelect01">{props.title}</label>
+                <DropMenuOptions array={props.array} handleChange={props.handleChange}/>
+            </div>
+        )
+    }
+}
+
 export function DropMenuSimple(props) {
     return (
         <div>
             <label>{props.title}</label>
-            <select className="form-select form-select-sm" onChange={e => props.handleChange(e.target.value)}>
-                {props.array.map(elm =>
-                    <option key={elm} value={elm}>{elm}</option>
-                )}
-            </select>
+            <DropMenuOptions array={props.array} handleChange={props.handleChange}/>
         </div>
+    )
+}
+
+function DropMenuOptions(props) {
+    return (
+        <select className="form-select form-select-sm" onChange={e => props.handleChange(e.target.value)}>
+            {props.array.map(elm =>
+                <option key={elm} value={elm}>{elm}</option>
+            )}
+        </select>
     )
 }
 
@@ -56,4 +74,36 @@ export function DropMenu(props) {
             </div>
         )
     }
+}
+
+export function FloatingInput(props) {
+    return(
+        <div className="form-floating mb-3">
+            <input
+                type="text"
+                className="form-control"
+                id={props.id}
+                onKeyPress= {props.validFormat}
+                maxLength={props.maxLength}
+                value={props.value}
+                onChange={(e) => props.handleChange(e.target.value)}/>
+            <label htmlFor="cardNumber">{props.title}</label>
+        </div>
+    )
+}
+
+export function SimpleInput(props) {
+    return(
+        <div className="input-group mb-3">
+            <label className="input-group-text" htmlFor="inputGroupSelect01">{props.title}</label>
+            <input
+                type="text"
+                className="form-control"
+                id={props.id}
+                onKeyPress={props.validFormat}
+                maxLength={props.maxLength}
+                onChange={(e) => props.handleChange(e.target.value)}
+            />
+        </div>
+    )
 }

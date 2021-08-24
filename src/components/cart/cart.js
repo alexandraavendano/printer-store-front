@@ -18,7 +18,6 @@ function getSubTotal(items) {
 
 function ItemDetails(props) {
     const item = props.item;
-    debugger
     const imageSrc = item.image.url == null ? getSrc(item.originalImage) : item.image.url;
     const customizations = item.customizations;
     const removeItem = (e) => {
@@ -133,7 +132,7 @@ export function Cart() {
                             <h2>Summary</h2>
                             <Prices items={items}/>
                             <div className="d-grid gap-2">
-                                <a className="btn btn-primary" href="/orders" role="button">Check out!</a>
+                                <a className="btn btn-primary" href="/payment" role="button">Check out!</a>
                             </div>
                         </div>
                     </div>

@@ -18,11 +18,22 @@ import ShowProducts from "./components/products/showProducts";
 import ProductDetails from "./components/products/productDetails";
 import {Cart} from "./components/cart/cart";
 import "./components/common/common.css";
+import {Payment} from "./components/payment/payment";
+import {AddressForm} from "./components/address/addressForm";
 
 function getRole() {
     try {
         const token = localStorage.getItem("token");
         return jwt_decode(token).role;
+    } catch (e) {
+        return null;
+    }
+}
+
+function getUserName() {
+    try {
+        const token = localStorage.getItem("token");
+        return jwt_decode(token).sub;
     } catch (e) {
         return null;
     }
@@ -38,6 +49,7 @@ function App() {
     const [token, setToken] = useState(localStorage.getItem("token"));
     const [redirectToCart, setRedirectToCart] = useState(false);
     let role = getRole();
+    let userName = getUserName();
 
     return (
         <div>
@@ -72,6 +84,12 @@ function App() {
                                 </Route>
                                 <Route path="/employees">
                                     {role === "ROLE_ADMIN" ? <EmployeeDashboard/> : <Redirect to="/login"/>}
+                                </Route>
+                                <Route path="/payment">
+                                    {role === "ROLE_CLIENT" ? <Payment userName={userName}/> : <Redirect to="/login"/>}
+                                </Route>
+                                <Route path="/delivery">
+                                    {role === "ROLE_CLIENT" ? <AddressForm/> : <Redirect to="/login"/>}
                                 </Route>
                                 <Route path="/logout">
                                     <LogOut setToken={setToken}/>
