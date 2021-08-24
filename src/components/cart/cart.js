@@ -3,6 +3,7 @@ import './cart.css';
 import CustomAlert from "../common/customAlert";
 import React, {useState} from "react";
 import {getSrc} from "../helpers/imageHelper";
+import {getRole} from "../helpers/dtos";
 
 function getPrice(item) {
     let unitPrice = item.price * item.quantity;
@@ -107,6 +108,7 @@ function Prices(props) {
 export function Cart() {
     const [items, setItems] = useState(getCartItems);
     const isEmpty = items.length === 0 || items == null
+    const role = getRole();
 
     if (isEmpty) {
         return (
@@ -131,7 +133,10 @@ export function Cart() {
                             <h2>Summary</h2>
                             <Prices items={items}/>
                             <div className="d-grid gap-2">
-                                <a className="btn btn-primary" href="/payment" role="button">Check out!</a>
+                                { role === "ROLE_CLIENT"
+                                    ? <a className="btn btn-primary" href="/payment" role="button">Check out!</a>
+                                    : <a className="btn btn-primary disabled" href="/payment" role="button">Check out!</a>
+                                }
                             </div>
                         </div>
                     </div>
