@@ -4,7 +4,6 @@ import CustomAlert from "../common/customAlert";
 import React, {useState} from "react";
 import {getSrc} from "../helpers/imageHelper";
 
-
 function getPrice(item) {
     let unitPrice = item.price * item.quantity;
     let customizablePrice =  item.customizations.map(c => c.price).reduce((acc, actual) => acc + actual);                      // Customizable are how much each addition is going to cost more.
@@ -28,11 +27,11 @@ function ItemDetails(props) {
     return (
         <div key={props.index} className="card mb-3">
             <div className="row g-0">
-                <div className="col-md-4"><img src={imageSrc} className="img-fluid rounded-start"/></div>
+                <div className="col-md-4"><img src={imageSrc} className="img-fluid rounded-start" alt={item.name}/></div>
                 <div className="col-md-8">
                     <div className="card-body">
                         <h3 className="card-title">{item.name}</h3><br/>
-                        <p className="card-text">
+                        <div className="card-text">
                             <div className="row align-items-center">
                                 <div className="col">
                                     <span><strong>Quantity </strong> {item.quantity}</span><br/>
@@ -48,7 +47,7 @@ function ItemDetails(props) {
                                     )}
                                 </div>
                             </div>
-                        </p>
+                        </div>
                         <div className="row">
                             <div className="col-8">
                                 <button type="button" className="btn btn-secondary bold-button btn-sm" onClick={(e) => removeItem(e)}>Delete

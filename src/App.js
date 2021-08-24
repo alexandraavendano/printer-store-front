@@ -11,7 +11,6 @@ import './style.scss'
 import {Redirect} from "react-router";
 import React, {useState} from "react";
 import Orders from "./components/orders/orders";
-import jwt_decode from 'jwt-decode';
 import NotFound from "./components/common/notFound";
 import EmployeeDashboard from "./components/admin/createEmployee/employeeDashboard";
 import ShowProducts from "./components/products/showProducts";
@@ -20,24 +19,7 @@ import {Cart} from "./components/cart/cart";
 import "./components/common/common.css";
 import {Payment} from "./components/payment/payment";
 import {AddressForm} from "./components/address/addressForm";
-
-function getRole() {
-    try {
-        const token = localStorage.getItem("token");
-        return jwt_decode(token).role;
-    } catch (e) {
-        return null;
-    }
-}
-
-function getUserName() {
-    try {
-        const token = localStorage.getItem("token");
-        return jwt_decode(token).sub;
-    } catch (e) {
-        return null;
-    }
-}
+import {getRole} from "./components/helpers/dtos";
 
 function LogOut(props) {
     localStorage.removeItem("token")
@@ -49,7 +31,6 @@ function App() {
     const [token, setToken] = useState(localStorage.getItem("token"));
     const [redirectToCart, setRedirectToCart] = useState(false);
     let role = getRole();
-    let userName = getUserName();
 
     return (
         <div>
@@ -82,11 +63,14 @@ function App() {
                                 <Route path="/orders">
                                     {token ? <Orders/> : <Redirect to="/login"/>}
                                 </Route>
+                                <Route path="/myOrders">
+                                    {role === "ROLE_CLIENT" ? <Orders/> : <Redirect to="/login"/>}
+                                </Route>
                                 <Route path="/employees">
                                     {role === "ROLE_ADMIN" ? <EmployeeDashboard/> : <Redirect to="/login"/>}
                                 </Route>
                                 <Route path="/payment">
-                                    {role === "ROLE_CLIENT" ? <Payment userName={userName}/> : <Redirect to="/login"/>}
+                                    {role === "ROLE_CLIENT" ? <Payment/> : <Redirect to="/login"/>}
                                 </Route>
                                 <Route path="/delivery">
                                     {role === "ROLE_CLIENT" ? <AddressForm/> : <Redirect to="/login"/>}

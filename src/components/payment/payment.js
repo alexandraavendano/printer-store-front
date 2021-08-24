@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import {DropMenuLabelInLine, FloatingInput, SimpleInput} from "../products/productFormHelpers";
-import {savePayment} from "../helpers/externalCalls";
+import {saveOrder, savePayment} from "../helpers/externalCalls";
 import {Redirect} from "react-router";
+import {getUserName, orderDTO} from "../helpers/dtos";
 
 //TODO:
 // Validation not empty
@@ -26,27 +27,30 @@ export function Payment(props) {
     const [securityCode, setSecurityCode] = useState(null);
     const months = [...Array(12).keys()].map(m => m + 1);
     const years = [...Array(20).keys()].map(m => m + new Date().getFullYear());
+    const [isPayed, setIsPayed] = useState(false);
     const [redirectToOrders, setRedirectToOrders] = useState(false);
 
     const onSubmit = (e) => {
         const payment = {
-            cardNumber : cardNumber,
-            cardHolderName : cardName,
+            cardNumber: cardNumber,
+            cardHolderName: cardName,
             month: month,
             year: year,
             cvv: securityCode,
             client: {
-                id: props.userName
+                email: getUserName()
             }
         }
-
-        savePayment(setRedirectToOrders, payment);
+        savePayment(setIsPayed, payment);
+        if(isPayed) {
+            saveOrder(setRedirectToOrders, orderDTO());
+            localStorage.removeItem("cart");
+        }
         e.preventDefault();
     }
 
-
     if (redirectToOrders) {
-        return <Redirect to="/orders" />
+        return <Redirect to="/orders"/>
     }
 
     return (
@@ -66,7 +70,7 @@ export function Payment(props) {
                     </div>
                     <div className="col">
                         <SimpleInput title={"CVV"} value={securityCode} handleChange={setSecurityCode}
-                                       id={"cardName"} maxLength={"4"} validFormat={filterNumbers}/>
+                                     id={"cardName"} maxLength={"4"} validFormat={filterNumbers}/>
                     </div>
                 </div>
                 <button type="submit" className="btn btn-secondary ">Save</button>
