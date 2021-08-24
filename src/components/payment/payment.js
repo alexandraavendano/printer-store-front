@@ -27,7 +27,6 @@ export function Payment(props) {
     const [securityCode, setSecurityCode] = useState(null);
     const months = [...Array(12).keys()].map(m => m + 1);
     const years = [...Array(20).keys()].map(m => m + new Date().getFullYear());
-    const [isPayed, setIsPayed] = useState(false);
     const [redirectToOrders, setRedirectToOrders] = useState(false);
 
     const onSubmit = (e) => {
@@ -41,11 +40,11 @@ export function Payment(props) {
                 email: getUserName()
             }
         }
-        savePayment(setIsPayed, payment);
-        if(isPayed) {
-            saveOrder(setRedirectToOrders, orderDTO());
-            localStorage.removeItem("cart");
-        }
+
+        savePayment(payment)
+            .then(saveOrder(setRedirectToOrders, orderDTO()))
+            .then(localStorage.removeItem("cart"));
+
         e.preventDefault();
     }
 

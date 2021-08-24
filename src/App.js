@@ -27,6 +27,21 @@ function LogOut(props) {
     return <Redirect to={"/"}/>;
 }
 
+function redirectHome(){
+    const role = getRole();
+    if(role === "ROLE_ADMIN") {
+        return <Redirect to="/employees"/>
+    } else if(role === "ROLE_CLIENT") {
+        if(localStorage.getItem("cart") != null){
+            return <Redirect to="/payment"/>
+        } else {
+            return <Redirect to="/myOrders"/>
+        }
+    } else {
+        return <Redirect to="/orders"/>
+    }
+}
+
 function App() {
     const [token, setToken] = useState(localStorage.getItem("token"));
     const [redirectToCart, setRedirectToCart] = useState(false);
@@ -45,7 +60,7 @@ function App() {
                                 </Route>
                                 <Route path="/about" component={About}/>
                                 <Route path="/login">
-                                    {token ? <Redirect to="/orders"/> : <Login setToken={setToken}/>}
+                                    {token ? redirectHome() : <Login setToken={setToken}/>}
                                 </Route>
                                 <Route exact path="/products">
                                     <ShowProducts category='Customizable'/>
@@ -60,9 +75,6 @@ function App() {
                                     <Cart/>
                                 </Route>
                                 <Route path="/signup" component={Signup}/>
-                                <Route path="/orders">
-                                    {token ? <Orders/> : <Redirect to="/login"/>}
-                                </Route>
                                 <Route path="/myOrders">
                                     {role === "ROLE_CLIENT" ? <Orders/> : <Redirect to="/login"/>}
                                 </Route>

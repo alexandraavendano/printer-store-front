@@ -36,7 +36,6 @@ function Orders() {
     if (orders == null) getOrderByUser(setOrder, getUserName())
 
     if (orders != null && orders.length !== 0) {
-        debugger
         return (
             <div>
                 <h1>Orders History</h1>

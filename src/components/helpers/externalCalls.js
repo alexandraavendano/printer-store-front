@@ -49,18 +49,18 @@ export function getProductsByType (setProduct, type) {
 }
 
 //-------------- PAYMENT
-export function savePayment(setPayment, body) {
-    fetch("http://localhost:8080/users/payments", simplePost(JSON.stringify(body)))
+export function savePayment(body) {
+    return fetch("http://localhost:8080/users/payments", simplePost(JSON.stringify(body)))
         .then(res => res.json())
         .then(
-            (result) => setPayment(true),
+            (result) => console.log(result),
             (error) => console.log(error)
         )
 }
 
 //-------------- ORDERS
 export function saveOrder(setOrder, body) {
-    fetch("http://localhost:8080/users/orders", simplePost(JSON.stringify(body)))
+    return fetch("http://localhost:8080/users/orders", simplePost(JSON.stringify(body)))
         .then(res => res.json())
         .then(
             (result) => setOrder(true),
