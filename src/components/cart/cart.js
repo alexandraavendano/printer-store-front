@@ -133,7 +133,7 @@ export function Cart() {
                             <h2>Summary</h2>
                             <Prices items={items}/>
                             <div className="d-grid gap-2">
-                                { role === "ROLE_CLIENT"
+                                { role === "ROLE_CLIENT" || role == null
                                     ? <a className="btn btn-primary" href="/payment" role="button">Check out!</a>
                                     : <a className="btn btn-primary disabled" href="/payment" role="button">Check out!</a>
                                 }

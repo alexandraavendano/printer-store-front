@@ -92,6 +92,22 @@ export function FloatingInput(props) {
     )
 }
 
+export function FloatingInputPassword(props) {
+    return(
+        <div className="form-floating mb-3">
+            <input
+                type="password"
+                className="form-control"
+                id={props.id}
+                onKeyPress= {props.validFormat}
+                maxLength={props.maxLength}
+                value={props.value}
+                onChange={(e) => props.handleChange(e.target.value)}/>
+            <label htmlFor="cardNumber">{props.title}</label>
+        </div>
+    )
+}
+
 export function SimpleInput(props) {
     return(
         <div className="input-group mb-3">

@@ -11,7 +11,7 @@ function BasicHeader() {
         <div>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About</Link></li>
-            <li><Link to="/products">Product</Link></li>
+            <li><Link to="/products">Products</Link></li>
             <li><Link to="/services">Services</Link></li>
             <li className="icon"><Link to="/login"><BsPersonFill size={20}/></Link></li>
             <li className="icon"><Link to="/cart"><FaCartPlus size={20}/></Link></li>
@@ -24,7 +24,7 @@ function ClientHeader() {
         <div>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About</Link></li>
-            <li><Link to="/products">Product</Link></li>
+            <li><Link to="/products">Products</Link></li>
             <li><Link to="/services">Services</Link></li>
             <li><Link to="/myOrders">Orders</Link></li>
             <li className="icon"><Link to="/logout"><RiLogoutCircleRLine size={20}/></Link></li>
@@ -38,7 +38,7 @@ function AdminHeader() {
         <div>
             <li><Link to="/admin/home">Home</Link></li>
             <li><Link to="/products">Client view</Link></li>
-            <li><Link to="/admin/products">Product</Link></li>
+            <li><Link to="/admin/products">Products</Link></li>
             <li><Link to="/employees">Employees</Link></li>
             <li className="icon"><Link to="/logout"><RiLogoutCircleRLine size={20}/></Link></li>
         </div>

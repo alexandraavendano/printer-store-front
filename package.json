@@ -2,6 +2,7 @@
   "name": "printer-store-front",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://localhost:8000",
   "dependencies": {
     "@popperjs/core": "^2.9.3",
     "@testing-library/jest-dom": "^5.14.1",
@@ -11,6 +12,7 @@
     "jwt-decode": "^3.1.2",
     "node-sass": "^6.0.1",
     "react": "^17.0.2",
+    "react-bootstrap": "^2.0.0-beta.6",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
     "react-responsive-carousel": "^3.2.20",

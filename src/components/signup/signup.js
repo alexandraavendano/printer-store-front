@@ -2,7 +2,6 @@ import React from "react";
 import CustomAlert from "../common/customAlert";
 
 class Signup extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -48,7 +47,7 @@ class Signup extends React.Component {
     }
 
     render() {
-        if (this.state.isError !=null) {
+        if (this.state.isError != null) {
             return (
                 <CustomAlert
                     isError={this.state.isError}
@@ -62,35 +61,43 @@ class Signup extends React.Component {
                 <div className="container container-medium">
                     <h3>Sign Up</h3>
                     <div className="container bg-light border">
+
                         <form onSubmit={this.handleSubmit}>
+
+                            <div className="row">
+                                <div className="col">
+                                    <div className="mb-3">
+                                        <label htmlFor="inputFirstName" className="form-label">First Name</label>
+                                        <input type="text"
+                                               className="form-control"
+                                               id="inputFirstName"
+                                               name="firstName"
+                                               value={this.state.firstName}
+                                               onChange={this.handleChange}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div className="mb-3">
+                                        <label htmlFor="inputLastName" className="form-label">Last Name</label>
+                                        <input type="text"
+                                               className="form-control"
+                                               id="inputLastName"
+                                               name="lastName"
+                                               value={this.state.lastName}
+                                               onChange={this.handleChange}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                             <div className="mb-3">
-                                <label htmlFor="inputEmail" className="form-label">Email address</label>
+                                <label htmlFor="inputEmail" className="form-label">Email Address</label>
                                 <input type="email"
                                        className="form-control"
                                        id="inputEmail"
                                        aria-describedby="emailHelp"
                                        name="email"
                                        value={this.state.email}
-                                       onChange={this.handleChange}
-                                />
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="inputFirstName" className="form-label">First Name</label>
-                                <input type="text"
-                                       className="form-control"
-                                       id="inputFirstName"
-                                       name="firstName"
-                                       value={this.state.firstName}
-                                       onChange={this.handleChange}
-                                />
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="inputLastName" className="form-label">Last Name</label>
-                                <input type="text"
-                                       className="form-control"
-                                       id="inputLastName"
-                                       name="lastName"
-                                       value={this.state.lastName}
                                        onChange={this.handleChange}
                                 />
                             </div>

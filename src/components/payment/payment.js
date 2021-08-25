@@ -14,7 +14,7 @@ const filterNumbers = (event) => {
 }
 
 const filterLetters = (event) => {
-    if (!/[A-Z ]/.test(event.key)) {
+    if (!/[a-z ]/.test(event.key) && !/[A-Z ]/.test(event.key)) {
         event.preventDefault();
     }
 }
@@ -58,7 +58,7 @@ export function Payment(props) {
             <form className="container bg-light border" onSubmit={(e) => onSubmit(e)}>
                 <FloatingInput title={"Card Number"} value={cardNumber} handleChange={setCardNumber}
                                id={"cardNumber"} maxLength={"16"} validFormat={filterNumbers}/>
-                <FloatingInput title={"Card Holder Name - Capital Case"} value={cardName} handleChange={setCardName}
+                <FloatingInput title={"Card Holder Name"} value={cardName} handleChange={setCardName}
                                id={"cardName"} maxLength={"26"} validFormat={filterLetters}/>
                 <div className="row" style={{marginTop: 15}}>
                     <div className="col">
