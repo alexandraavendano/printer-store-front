@@ -13,6 +13,16 @@ const simplePost = (body) => {
     };
 }
 
+const multipartPost = (body) => {
+    return {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer' + localStorage.getItem("token"),
+        },
+        body: body
+    };
+}
+
 const getWithAuthorization = {
     method: 'GET',
     headers: {
@@ -56,7 +66,35 @@ export function getProductsByType(setProduct, type) {
         )
 }
 
+export function saveProduct(body, setProduct) {
+    return fetch("http://localhost:8080/products", simplePost(JSON.stringify(body)))
+        .then(res => res.json())
+        .then(
+            (result) => setProduct(result),
+            (error) => console.log(error)
+        )
+}
 
+export function saveProduct2(body, setProduct) {
+    return fetch("http://localhost:8080/products", simplePost(body))
+        .then(res => res.json())
+        .then(
+            (result) => setProduct(result),
+            (error) => console.log(error)
+        )
+}
+
+//-------------- IMAGES
+export function saveImage(fileInput, savedImage) {
+    const imageData = new FormData();
+    imageData.append('images', fileInput[0])
+    return fetch("http://localhost:8080/images", multipartPost(imageData))
+        .then(res => res.json())
+        .then(
+            (result) => result,
+            (error) => console.log(error)
+        )
+}
 
 //-------------- PAYMENT
 export function savePayment(body) {

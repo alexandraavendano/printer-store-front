@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 export function ProductTable(props) {
     const products = props.products;
 
+    if(products === undefined) return <div/>
     return (
         <div className={"table-container"}>
             <table className="table table-striped table-bordered">

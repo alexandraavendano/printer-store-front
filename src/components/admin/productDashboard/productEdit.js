@@ -3,7 +3,7 @@ import {BasicInformationForm} from "../productCreation/BasicInformation";
 import {CustomizationForm} from "../productCreation/Customizations";
 import {ImagesForm} from "../productCreation/Images";
 import React, {useEffect, useState} from "react";
-import {getProductsById} from "../../helpers/externalCalls";
+import {getProductsById, saveProduct} from "../../helpers/externalCalls";
 import {useParams} from "react-router";
 
 const emptyProduct = {
@@ -30,8 +30,22 @@ export function ProductEdit() {
         }));
     };
 
+    const handleSave = () => {
+        saveProduct(product, setProduct)
+    }
+
+    const handleImageChange = (updatedImages) => {
+        setProduct(prevState => ({
+            ...prevState,
+            images: updatedImages
+        }));
+        handleSave();
+    };
+
     useEffect(() => {
-            if (id.id !== "create") getProductsById(setProduct, id.id);
+            if (id.id !== "create") {
+                getProductsById(setProduct, id.id);
+            }
         }, [id.id])
 
     return (
@@ -60,7 +74,7 @@ export function ProductEdit() {
                                 <CustomizationForm product={product} handleChange={handleChange}/>
                             </Tab.Pane>
                             <Tab.Pane eventKey="third">
-                                <ImagesForm product={product} handleChange={handleChange}/>
+                                <ImagesForm product={product} handleImageChange={handleImageChange} setProduct={setProduct}/>
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>
