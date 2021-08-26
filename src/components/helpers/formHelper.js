@@ -1,5 +1,5 @@
 import {Carousel} from "react-responsive-carousel";
-import {getSrc} from "../helpers/imageHelper";
+import {getSrc} from "./imageHelper";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import React from "react";
 
@@ -123,3 +123,22 @@ export function SimpleInput(props) {
         </div>
     )
 }
+
+
+export function SimpleInput2(props) {
+    return(
+        <div className="mb-3">
+            <label className="form-label" htmlFor="inputGroupSelect01">{props.title}</label>
+            <input
+                type="text"
+                className="form-control"
+                id={props.title}
+                maxLength={props.maxLength}
+                name={props.name}
+                value={props.value}
+                onChange={(e) => props.handleChange(e)}
+            />
+        </div>
+    )
+}
+

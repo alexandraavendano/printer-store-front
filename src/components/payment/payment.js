@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {DropMenuLabelInLine, FloatingInput, SimpleInput} from "../products/productFormHelpers";
+import {DropMenuLabelInLine, FloatingInput, SimpleInput} from "../helpers/formHelper";
 import {saveOrder, savePayment} from "../helpers/externalCalls";
 import {Redirect} from "react-router";
 import {getUserName, orderDTO} from "../helpers/dtos";

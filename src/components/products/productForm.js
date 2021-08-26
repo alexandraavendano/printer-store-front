@@ -1,4 +1,4 @@
-import {DropMenu, DropMenuSimple, GroupButtons} from "./productFormHelpers";
+import {DropMenu, DropMenuSimple, GroupButtons} from "../helpers/formHelper";
 import React, {useState} from "react";
 import {CollapseDesign} from "./productDesign";
 import {addToCart} from "../cart/cartHelper";

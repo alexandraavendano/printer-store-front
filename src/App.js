@@ -95,6 +95,9 @@ function App() {
                                 <Route path="/admin/products/:id">
                                     {role === "ROLE_ADMIN" ? <ProductEdit/>: <Redirect to="/login"/>}
                                 </Route>
+                                <Route exact path="/admin/products/create">
+                                    {role === "ROLE_ADMIN" ? <ProductEdit/>: <Redirect to="/login"/>}
+                                </Route>
                                 <Route path="/logout">
                                     <LogOut setToken={setToken}/>
                                 </Route>

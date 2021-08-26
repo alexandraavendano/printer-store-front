@@ -14,16 +14,9 @@ export default function ProductDashboard() {
     const [products, setProducts] = useState([]);
     const [query, setQuery] = useState("");
     const [selectedProducts, setSelectedProducts] = useState(new Set());
-    const [show, setShow] = useState(false);
     const [refresh, setRefresh] = useState(false);
 
     const handleRefresh = () => setRefresh(!refresh);
-    const handleClose = () => {
-        handleRefresh();
-        setShow(false);
-    }
-
-    const handleShow = () => setShow(true);
 
     const handleSelectedProducts = (e) => {
         const employeeId = e.target.value;
@@ -47,13 +40,11 @@ export default function ProductDashboard() {
                 <SearchBar query={query} setQuery={setQuery}/>
                 <ProductTable products={products} setSelectedProducts={handleSelectedProducts}/>
                 <div>
-                    <button type="button" className="btn btn-secondary btn-sm" onClick={handleShow}>Add product
-                    </button>
+                    <button type="button" className="btn btn-secondary btn-sm">Add employee</button>
                     <button type="button" className="btn btn-secondary btn-sm" onClick={handleDelete}
                             style={{marginLeft: 15}}>Delete
                     </button>
                 </div>
-                {/*<CreateEmployeeModal show={show} handleClose={handleClose}/>*/}
             </div>
         )
     }

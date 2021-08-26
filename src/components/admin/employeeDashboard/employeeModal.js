@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {saveEmployee} from "../../helpers/externalCalls";
 import {Button, Modal} from "react-bootstrap";
 import CustomAlert from "../../common/customAlert";
-import {FloatingInput, FloatingInputPassword} from "../../products/productFormHelpers";
+import {FloatingInput, FloatingInputPassword} from "../../helpers/formHelper";
 
 export function CreateEmployeeModal(props) {
     const [firstName, setFirstName] = useState();

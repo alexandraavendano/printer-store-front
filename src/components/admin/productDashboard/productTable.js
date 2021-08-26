@@ -1,10 +1,5 @@
 import React from "react";
-import {Redirect} from "react-router";
 import {Link} from "react-router-dom";
-
-function redirect(id) {
-    return <Redirect to={`/admin/products/${id}`}/>
-}
 
 export function ProductTable(props) {
     const products = props.products;
@@ -34,7 +29,7 @@ export function ProductTable(props) {
                         <td>{product.price}</td>
                         <td>{product.type.name} - {product.type.subType}</td>
                         <td>
-                            <Link to={`products/${product.id}`}>
+                            <Link push to={`/admin/products/${product.id}`}>
                                 <button type="button" className="btn btn-primary">Update</button>
                             </Link>
                         </td>

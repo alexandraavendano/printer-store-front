@@ -36,7 +36,7 @@ function ClientHeader() {
 function AdminHeader() {
     return (
         <div>
-            <li><Link to="/admin/home">Home</Link></li>
+            <li><Link to="/admin/home">Orders</Link></li>
             <li><Link to="/products">Client view</Link></li>
             <li><Link to="/admin/products">Products</Link></li>
             <li><Link to="/employees">Employees</Link></li>

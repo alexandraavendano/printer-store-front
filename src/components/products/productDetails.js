@@ -1,7 +1,7 @@
 import {useParams} from "react-router";
 import {useEffect, useState} from "react";
 import {getProductsById} from "../helpers/externalCalls";
-import {ProductImages} from "./productFormHelpers";
+import {ProductImages} from "../helpers/formHelper";
 import {ProductCustomizationForm} from "./productForm";
 
 function ProductInformation(props) {
