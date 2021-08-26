@@ -49,7 +49,7 @@ export function Payment(props) {
     }
 
     if (redirectToOrders) {
-        return <Redirect to="/orders"/>
+        return <Redirect to="/myOrders"/>
     }
 
     return (

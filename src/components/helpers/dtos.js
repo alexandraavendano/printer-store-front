@@ -31,7 +31,7 @@ function itemsDTO() {
                 price: item.price,
                 quantity: item.quantity,
                 state: {
-                    name: "payed"
+                    name: "Ready to Print"
                 },
                 image: {
                     id: 1,
@@ -46,7 +46,7 @@ export function orderDTO() {
     return {
         items: itemsDTO(),
         state: {
-            name: "payed"
+            name: "Ready to Print"
         },
         client: {
             email: getUserName(),

@@ -1,9 +1,9 @@
 import {Tab, Row, Col, Nav} from "react-bootstrap";
-import {BasicInformationForm} from "../productCreation/BasicInformation";
-import {CustomizationForm} from "../productCreation/Customizations";
-import {ImagesForm} from "../productCreation/Images";
+import {BasicInformationForm} from "./BasicInformation";
+import {CustomizationForm} from "./Customizations";
+import {ImagesForm} from "./Images";
 import React, {useEffect, useState} from "react";
-import {getProductsById, saveProduct} from "../../helpers/externalCalls";
+import {getProductsById, getProductType, saveProductWithoutJson} from "../../helpers/externalCalls";
 import {useParams} from "react-router";
 
 const emptyProduct = {
@@ -18,11 +18,12 @@ const emptyProduct = {
     customizable: []
 }
 
-export function ProductEdit() {
+export function ProductCreateAndEdit() {
     let id = useParams();
     const [product, setProduct] = useState(emptyProduct);
+    const [productTypes, setProductTypes] = useState([]);
 
-    const handleChange = e => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setProduct(prevState => ({
             ...prevState,
@@ -31,7 +32,7 @@ export function ProductEdit() {
     };
 
     const handleSave = () => {
-        saveProduct(product, setProduct)
+        saveProductWithoutJson(product, setProduct)
     }
 
     const handleImageChange = (updatedImages) => {
@@ -39,14 +40,14 @@ export function ProductEdit() {
             ...prevState,
             images: updatedImages
         }));
-        handleSave();
     };
 
     useEffect(() => {
             if (id.id !== "create") {
                 getProductsById(setProduct, id.id);
             }
-        }, [id.id])
+            getProductType(setProductTypes);
+        }, [id.id] )
 
     return (
         <div>
@@ -66,12 +67,12 @@ export function ProductEdit() {
                         </Nav>
                     </Col>
                     <Col sm={9}>
-                        <Tab.Content>
+                        <Tab.Content style={{minHeight:500}}>
                             <Tab.Pane eventKey="first">
-                                <BasicInformationForm product={product} handleChange={handleChange}/>
+                                <BasicInformationForm product={product} handleChange={handleChange} handleSave={handleSave} productTypes={productTypes}/>
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
-                                <CustomizationForm product={product} handleChange={handleChange}/>
+                                <CustomizationForm product={product} setProduct={setProduct}/>
                             </Tab.Pane>
                             <Tab.Pane eventKey="third">
                                 <ImagesForm product={product} handleImageChange={handleImageChange} setProduct={setProduct}/>
@@ -80,8 +81,6 @@ export function ProductEdit() {
                     </Col>
                 </Row>
             </Tab.Container>
-
-
         </div>
     )
 }

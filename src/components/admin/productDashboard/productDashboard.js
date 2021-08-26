@@ -1,33 +1,24 @@
 import React, {useEffect, useState} from "react";
 import {Spinner} from "react-bootstrap";
-import {deleteEmployee, getProducts} from "../../helpers/externalCalls";
+import {getProducts} from "../../helpers/externalCalls";
 import {SearchBar} from "../../common/searchBar";
-
 import {ProductTable} from "./productTable";
+import {Link} from "react-router-dom";
 
 //TODO:
-// Add search button functionality OK
-// Create add OK
+// Add search button functionality
+// Create add
 // Edit
-// Delete button. OK
 export default function ProductDashboard() {
     const [products, setProducts] = useState([]);
     const [query, setQuery] = useState("");
     const [selectedProducts, setSelectedProducts] = useState(new Set());
     const [refresh, setRefresh] = useState(false);
 
-    const handleRefresh = () => setRefresh(!refresh);
-
     const handleSelectedProducts = (e) => {
         const employeeId = e.target.value;
         selectedProducts.has(employeeId) ? selectedProducts.delete(employeeId) : selectedProducts.add(employeeId);
         setSelectedProducts(selectedProducts);
-    }
-
-    const handleDelete = () => {
-        for (let employee of selectedProducts) {
-            deleteEmployee(handleRefresh, employee)
-        }
     }
 
     useEffect(() => {getProducts( setProducts)}, [refresh, query])
@@ -39,12 +30,9 @@ export default function ProductDashboard() {
             <div>
                 <SearchBar query={query} setQuery={setQuery}/>
                 <ProductTable products={products} setSelectedProducts={handleSelectedProducts}/>
-                <div>
-                    <button type="button" className="btn btn-secondary btn-sm">Add employee</button>
-                    <button type="button" className="btn btn-secondary btn-sm" onClick={handleDelete}
-                            style={{marginLeft: 15}}>Delete
-                    </button>
-                </div>
+                <Link push to={"/admin/products/create"}>
+                    <button type="button" className="btn btn-secondary btn-sm">Add Product</button>
+                </Link>
             </div>
         )
     }

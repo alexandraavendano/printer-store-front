@@ -1,18 +1,11 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {getSrc} from "../../helpers/imageHelper";
-import {saveImage, saveProduct, saveProduct2} from "../../helpers/externalCalls";
+import {saveImage, saveProductWithoutJson} from "../../helpers/externalCalls";
 
 export function ImagesForm(props) {
     const [images, setImages] = useState([]);
     const [image, savedImage] = useState({});
-
-//     useEffect(() => {
-//          //if(image.id !== undefined && props.product.images.find(i => i.id === image.id) === undefined ) {
-//         //     props.product.images.push(image)
-//         //     props.handleImageChange(props.product.images);
-// //             setImages([])
-//          }
-//     }, [image, props], )
+    const imageInputRef = React.useRef();
 
     const handleFiles = (e) => {
         setImages(e.target.files);
@@ -27,36 +20,43 @@ export function ImagesForm(props) {
                         return {id: i.id}
                     })
                 }
-
-                saveProduct2(h, props.setProduct)
+                return saveProductWithoutJson(h, props.setProduct)
             })
         }
+        imageInputRef.current.value = "";
+        setImages([])
         e.preventDefault();
     }
 
-    if(props.product === undefined || props.product.images === undefined) return <div/>
+    useEffect(() => console.log(image), [image])
+
+    if (props.product === undefined || props.product.images === undefined) return <div/>
     return (
         <div>
-            <h1 style={{marginBottom: 25}}>Images</h1>
+            <h1 style={{margin: 25}}>Product Images</h1>
             {props.product.images.map(image =>
                 <img src={getSrc(image)} className="img-thumbnail" alt={"name"}
                      style={{maxHeight: 150, maxWidth: 150}} key={image.id}/>
             )}
 
-            <div className="input-group" style={{marginTop: 30}}>
-                <input type="file" className="form-control" id="inputGroupFile04"
-                       aria-describedby="inputGroupFileAddon04" aria-label="Upload" onChange={(e) => handleFiles(e)}/>
-                <button className="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"
-                        onClick={(e) => handleSubmit(e)}>Upload
-                </button>
+            <div>
+                <label className={"form-label"} style={{marginTop: 30}}>Add more</label>
+                <div className="input-group">
+                    <input type="file"
+                           className="form-control"
+                           id="inputGroupFile04"
+                           aria-describedby="inputGroupFileAddon04"
+                           aria-label="Upload"
+                           ref={imageInputRef}
+                           onChange={(e) => handleFiles(e)}/>
+                    {images === null || images.length === 0
+                        ? <button className="btn btn-outline-secondary" type="button" disabled>Upload</button>
+                        : <button className="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"
+                                  onClick={(e) => handleSubmit(e)}>Upload
+                        </button>
+                    }
+                </div>
             </div>
-
-            {/*<div className="mb-3">*/}
-            {/*    <label htmlFor="designFile" className="form-label">Please upload your design</label>*/}
-            {/*    <input className={"form-control"} type="file" id="designFile" onChange={(e) => handleFiles(e)}/>*/}
-            {/*</div>*/}
-
-
         </div>
     )
 }

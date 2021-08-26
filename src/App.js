@@ -19,7 +19,7 @@ import {Payment} from "./components/payment/payment";
 import {AddressForm} from "./components/address/addressForm";
 import {getRole} from "./components/helpers/dtos";
 import ProductDashboard from "./components/admin/productDashboard/productDashboard";
-import {ProductEdit} from "./components/admin/productDashboard/productEdit";
+import {ProductCreateAndEdit} from "./components/admin/productCreation/productCreateAndEdit";
 import "./components/common/common.css";
 import './style.scss'
 
@@ -93,10 +93,10 @@ function App() {
                                     {role === "ROLE_ADMIN" ? <ProductDashboard/> : <Redirect to="/login"/>}
                                 </Route>
                                 <Route path="/admin/products/:id">
-                                    {role === "ROLE_ADMIN" ? <ProductEdit/>: <Redirect to="/login"/>}
+                                    {role === "ROLE_ADMIN" ? <ProductCreateAndEdit/>: <Redirect to="/login"/>}
                                 </Route>
                                 <Route exact path="/admin/products/create">
-                                    {role === "ROLE_ADMIN" ? <ProductEdit/>: <Redirect to="/login"/>}
+                                    {role === "ROLE_ADMIN" ? <ProductCreateAndEdit/>: <Redirect to="/login"/>}
                                 </Route>
                                 <Route path="/logout">
                                     <LogOut setToken={setToken}/>
