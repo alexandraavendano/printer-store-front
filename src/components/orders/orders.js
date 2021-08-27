@@ -41,7 +41,7 @@ function Orders() {
                 <h1>Orders History</h1>
                 <div className={"content-container"}>
                     {orders.map(order =>
-                        <Order order={order}/>
+                        <Order key={order.id} order={order}/>
                     )}
                 </div>
             </div>

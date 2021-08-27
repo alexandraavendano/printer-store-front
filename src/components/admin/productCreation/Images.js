@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {getSrc} from "../../helpers/imageHelper";
 import {saveImage, saveProductWithoutJson} from "../../helpers/externalCalls";
 
 export function ImagesForm(props) {
     const [images, setImages] = useState([]);
-    const [image, savedImage] = useState({});
     const imageInputRef = React.useRef();
 
     const handleFiles = (e) => {
@@ -13,11 +12,11 @@ export function ImagesForm(props) {
 
     const handleSubmit = (e) => {
         if (images != null) {
-            saveImage(images, savedImage).then(image => {
+            saveImage(images).then(image => {
                 props.product.images.push(image)
                 let h = {
                     ...props.product, images: props.product.images.map(i => {
-                        return {id: i.id}
+                        return {id: i}
                     })
                 }
                 return saveProductWithoutJson(h, props.setProduct)
@@ -27,8 +26,6 @@ export function ImagesForm(props) {
         setImages([])
         e.preventDefault();
     }
-
-    useEffect(() => console.log(image), [image])
 
     if (props.product === undefined || props.product.images === undefined) return <div/>
     return (

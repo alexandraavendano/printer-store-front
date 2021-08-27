@@ -5,6 +5,7 @@ import {ImagesForm} from "./Images";
 import React, {useEffect, useState} from "react";
 import {getProductsById, getProductType, saveProductWithoutJson} from "../../helpers/externalCalls";
 import {useParams} from "react-router";
+import "./createProduct.css";
 
 const emptyProduct = {
     name: "",
@@ -50,7 +51,7 @@ export function ProductCreateAndEdit() {
         }, [id.id] )
 
     return (
-        <div>
+        <div className={"nav-container"}>
             <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                 <Row>
                     <Col sm={3}>
@@ -59,10 +60,10 @@ export function ProductCreateAndEdit() {
                                 <Nav.Link eventKey="first">Basic Information</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="third">Images</Nav.Link>
+                                <Nav.Link eventKey="second">Images</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="second">Customizations</Nav.Link>
+                                <Nav.Link eventKey="third">Customizations</Nav.Link>
                             </Nav.Item>
                         </Nav>
                     </Col>

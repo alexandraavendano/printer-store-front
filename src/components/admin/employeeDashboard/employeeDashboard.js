@@ -40,7 +40,8 @@ export default function EmployeeDashboard() {
 
     useEffect(() => {
         const url = "http://localhost:8080/employees";
-        getEmployees(query !== "" ? url + `?query=${query}` : url, setEmployees)
+        const urlQuery = query !== "" ? url + `?query=${query}` : url
+        getEmployees(urlQuery, setEmployees);
     }, [refresh, query])
 
     if (employees === null) {

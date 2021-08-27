@@ -2,55 +2,13 @@ import {DropMenu, DropMenuSimple, GroupButtons} from "../helpers/formHelper";
 import React, {useState} from "react";
 import {CollapseDesign} from "./productDesign";
 import {addToCart} from "../cart/cartHelper";
+import {cartItemDTO} from "../helpers/dtos";
+import {saveImage} from "../helpers/externalCalls";
 
 const sizes = ["1.7'x3", "2.5'x4", "4'x4'", "2.5'x10'", "2.5'x12", "4'x6"]
 const quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 25, 50, 100, 250]
 
-function imageToObject(image) {
-    if(image == null){
-        return {};
-    } else {
-        const imageData = new FormData();
-        Array.from(image).forEach((file, i) => {
-            imageData.append(i, file)
-        })
-
-        return {
-            url: URL.createObjectURL(image[0]),
-            data: imageData,
-        };
-    }
-}
-
-function getCustomizableObject(product, id) {
-    return product.customizable.find(c => c.id === id);
-}
-
-//TODO: Add design to the customizations if the seign is not ready.
-function customizedProduct(product, quantity, size, material, structure, image, designIdeas) {
-    const sizes = size.split("x");
-    const height = sizes[0];
-    const width = sizes[1];
-
-    const item = {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        originalImage: product.images[0],
-        height: height,
-        width: width,
-        quantity: quantity,
-        image: imageToObject(image),
-        designIdeas: designIdeas,
-        customizations: [
-            getCustomizableObject(product, material),
-            getCustomizableObject(product, structure)
-        ]
-    }
-
-    addToCart(item);
-}
-
+//TODO: Add design to the customizations if the design is not ready.
 export function ProductCustomizationForm(props) {
     const [quantity, setQuantity] = useState(quantities[0]);
     const [size, setSize] = useState(sizes[0]);
@@ -67,9 +25,16 @@ export function ProductCustomizationForm(props) {
         if(image == null && designIdeas === "") {
             setIsDesignValid(false);
         } else {
-            customizedProduct(props.product, quantity, size, material, structure, image, designIdeas);
-            setIsDesignValid(true);
-            props.setRedirectToCart(true);
+            const sizes = size.split("x");
+            const height = sizes[0];
+            const width = sizes[1];
+            const afterUpdate = (id) => {
+                addToCart(cartItemDTO(props.product, quantity, height, width, material, structure, id, designIdeas))
+                setIsDesignValid(true);
+                props.setRedirectToCart(true);
+            }
+
+            image != null ? saveImage(image).then(image => afterUpdate(image.id)) : afterUpdate(-1)
         }
         e.preventDefault();
     }

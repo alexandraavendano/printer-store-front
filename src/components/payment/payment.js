@@ -20,11 +20,11 @@ const filterLetters = (event) => {
 }
 
 export function Payment(props) {
-    const [cardNumber, setCardNumber] = useState(null);
-    const [cardName, setCardName] = useState(null);
+    const [cardNumber, setCardNumber] = useState("");
+    const [cardName, setCardName] = useState("");
     const [month, setMonth] = useState(1);
     const [year, setYear] = useState(2021);
-    const [securityCode, setSecurityCode] = useState(null);
+    const [securityCode, setSecurityCode] = useState("");
     const months = [...Array(12).keys()].map(m => m + 1);
     const years = [...Array(20).keys()].map(m => m + new Date().getFullYear());
     const [redirectToOrders, setRedirectToOrders] = useState(false);

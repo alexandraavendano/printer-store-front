@@ -22,9 +22,11 @@ function itemsDTO() {
     const cart = JSON.parse(localStorage.getItem("cart"));
 
     return cart.map(item => {
+
             const customizations = item.customizations.map(c => {
                 return {id: c.id}
             })
+
             return {
                 height: item.height,
                 width: item.width,
@@ -33,10 +35,8 @@ function itemsDTO() {
                 state: {
                     name: "Ready to Print"
                 },
-                image: {
-                    id: 1,
-                },
-                customizations: [...customizations,{id: item.id}]
+                image: item.image,
+                customizations: [...customizations, {id: item.id}]
             };
         }
     )
@@ -51,5 +51,29 @@ export function orderDTO() {
         client: {
             email: getUserName(),
         }
+    };
+}
+
+
+function getCustomizableObject(product, id) {
+    return product.customizable.find(c => c.id === id);
+}
+
+export function cartItemDTO(product, quantity, height, width, material, structure, customizedImageId, designIdeas) {
+    const imageId = customizedImageId === -1 ? product.images[0].id : customizedImageId;
+
+    return {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        height: height,
+        width: width,
+        quantity: quantity,
+        image:  {id: imageId},
+        designIdeas: designIdeas,
+        customizations: [
+            getCustomizableObject(product, material),
+            getCustomizableObject(product, structure)
+        ]
     };
 }

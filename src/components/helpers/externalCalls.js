@@ -23,18 +23,22 @@ const multipartPost = (body) => {
     };
 }
 
-const getWithAuthorization = {
-    method: 'GET',
-    headers: {
-        'Authorization': 'Bearer' + localStorage.getItem("token"),
-    },
+const getWithAuthorization = () => {
+    return {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer' + localStorage.getItem("token"),
+        }
+    };
 }
 
-const deleteWithAuthorization = {
-    method: 'DELETE',
-    headers: {
-        'Authorization': 'Bearer' + localStorage.getItem("token"),
-    },
+const deleteWithAuthorization = () => {
+    return {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer' + localStorage.getItem("token"),
+        }
+    };
 }
 
 
@@ -85,7 +89,7 @@ export function saveProductWithoutJson(body, setProduct) {
 }
 
 export function getProductType(setProductTypes) {
-    return fetch("http://localhost:8080/products/productTypes", getWithAuthorization)
+    return fetch("http://localhost:8080/products/productTypes", getWithAuthorization())
         .then(res => res.json())
         .then(
             (result) => setProductTypes(result),
@@ -94,7 +98,7 @@ export function getProductType(setProductTypes) {
 }
 
 //-------------- IMAGES
-export function saveImage(fileInput, savedImage) {
+export function saveImage(fileInput) {
     const imageData = new FormData();
     imageData.append('images', fileInput[0])
     return fetch("http://localhost:8080/images", multipartPost(imageData))
@@ -105,9 +109,18 @@ export function saveImage(fileInput, savedImage) {
         )
 }
 
+export function getImageById(setImage, imageId) {
+    fetch(`http://localhost:8080/images?id=${imageId}`, simpleGET)
+        .then(res => res.json())
+        .then(
+            (result) => setImage(result),
+            (error) => console.log(error)
+        )
+}
+
 //-------------- PAYMENT
 export function savePayment(body) {
-    return fetch("http://localhost:8080/users/payments", simplePost(JSON.stringify(body)))
+    return fetch("http://localhost:8080/users/payments", simplePost(body))
         .then(res => res.json())
         .then(
             (result) => console.log(result),
@@ -126,7 +139,7 @@ export function saveOrder(setOrder, body) {
 }
 
 export function getOrderByUser(setOrder, id) {
-    return fetch(`http://localhost:8080/users/orders/${id}`, getWithAuthorization)
+    return fetch(`http://localhost:8080/users/orders/${id}`, getWithAuthorization())
         .then(res => res.json())
         .then(
             (result) => setOrder(result),
@@ -135,7 +148,7 @@ export function getOrderByUser(setOrder, id) {
 }
 
 //-------------- EMPLOYEE
-export function saveEmployee(isSuccess,body) {
+export function saveEmployee(isSuccess, body) {
     fetch('http://localhost:8080/employees/signup', simplePost(body))
         .then(res => res.json())
         .then(
@@ -145,19 +158,15 @@ export function saveEmployee(isSuccess,body) {
 }
 
 export function getEmployees(url, setEmployees) {
-    fetch(url, getWithAuthorization)
+    return fetch(url, getWithAuthorization())
         .then(res => res.json())
         .then(
-            (result) => {
-                setEmployees(result);
-            }, (error) => {
-                debugger
-                console.log(error);
-            }
+            (result) => setEmployees(result),
+            (error) => console.log(error)
         )
 }
 
 export function deleteEmployee(setRefresh, id) {
-    fetch(`http://localhost:8080/employees/${id}`, deleteWithAuthorization)
+    fetch(`http://localhost:8080/employees/${id}`, deleteWithAuthorization())
         .then(res => setRefresh())
 }
