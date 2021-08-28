@@ -16,7 +16,7 @@ export function ImagesForm(props) {
                 props.product.images.push(image)
                 let h = {
                     ...props.product, images: props.product.images.map(i => {
-                        return {id: i}
+                        return {id: i.id}
                     })
                 }
                 return saveProductWithoutJson(h, props.setProduct)

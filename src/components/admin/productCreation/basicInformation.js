@@ -3,7 +3,7 @@ import {distinctName, distinctSubType} from "../../helpers/listHelper";
 import React from "react";
 
 export function BasicInformationForm(props) {
-    if (props.productTypes === undefined) return <div/>
+    if (props.productTypes === undefined || props.product.type === undefined) return <div/>
     return (
         <div>
             <h2 style={{marginTop: 25, marginBottom: 25}}>Basic Product Information {props.product.id === undefined ? <div/> : <div># {props.product.id}</div> } </h2>
@@ -28,7 +28,7 @@ export function BasicInformationForm(props) {
                         <select className="form-select" name={"name"}
                                 onChange={(e) => props.handleProductTypeChange(e)}>
                             {distinctName(props.productTypes).map(elm =>
-                                <option key={elm}  value={elm}>{elm}</option>
+                                <option key={elm} value={elm} selected={props.product.type.name === elm}>{elm}</option>
                             )}
                         </select>
                     </div>
@@ -39,7 +39,7 @@ export function BasicInformationForm(props) {
                         <select className="form-select" aria-label="Default select example" name={"subType"}
                                 onChange={(e) => props.handleProductTypeChange(e)}>
                             {distinctSubType(props.productTypes).map(elm =>
-                                <option key={elm} value={elm}>{elm}</option>
+                                <option key={elm} value={elm} selected={props.product.type.subType === elm}>{elm}</option>
                             )}
                         </select>
                     </div>
