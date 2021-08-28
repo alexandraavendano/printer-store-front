@@ -56,13 +56,14 @@ export function orderDTO() {
 
 
 function getCustomizableObject(product, id) {
+    debugger
     return product.customizable.find(c => c.id === id);
 }
 
 export function cartItemDTO(product, quantity, height, width, material, structure, customizedImageId, designIdeas) {
     const imageId = customizedImageId === -1 ? product.images[0].id : customizedImageId;
 
-    return {
+    let item= {
         id: product.id,
         name: product.name,
         price: product.price,
@@ -71,9 +72,11 @@ export function cartItemDTO(product, quantity, height, width, material, structur
         quantity: quantity,
         image:  {id: imageId},
         designIdeas: designIdeas,
-        customizations: [
-            getCustomizableObject(product, material),
-            getCustomizableObject(product, structure)
-        ]
+        customizations: []
     };
+
+    if(structure !== -1) item.customizations.push(getCustomizableObject(product, structure));
+    if(material !== -1) item.customizations.push(getCustomizableObject(product, material));
+
+    return item;
 }

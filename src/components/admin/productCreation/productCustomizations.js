@@ -6,7 +6,6 @@ export function ProductCustomizations(props) {
     if (products === undefined || products.customizable){
         return <div/>
     }
-
     return (
         <div className={"table-container"}>
             <table className="table table-striped table-bordered">
@@ -26,7 +25,7 @@ export function ProductCustomizations(props) {
                             <input
                                 className="form-check-input"
                                 type="checkbox"
-                                checked={props.selectedProducts ? props.selectedProducts.find(p => p.id === product.id) : false}
+                                defaultChecked={props.selectedProducts ? props.selectedProducts.find(p => p.id === product.id) : false}
                                 value={product}
                                 id={product.id}
                                 onClick={(e) => props.setSelectedProducts(e)}/>

@@ -71,15 +71,6 @@ export function getProductsByType(setProduct, type) {
 }
 
 export function saveProduct(body, setProduct) {
-    return fetch("http://localhost:8080/products", simplePost(JSON.stringify(body)))
-        .then(res => res.json())
-        .then(
-            (result) => setProduct(result),
-            (error) => console.log(error)
-        )
-}
-
-export function saveProductWithoutJson(body, setProduct) {
     return fetch("http://localhost:8080/products", simplePost(body))
         .then(res => res.json())
         .then(

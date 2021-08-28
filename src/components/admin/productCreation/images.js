@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {getSrc} from "../../helpers/imageHelper";
-import {saveImage, saveProductWithoutJson} from "../../helpers/externalCalls";
+import {saveImage, saveProduct} from "../../helpers/externalCalls";
 
 export function ImagesForm(props) {
     const [images, setImages] = useState([]);
@@ -19,7 +19,7 @@ export function ImagesForm(props) {
                         return {id: i.id}
                     })
                 }
-                return saveProductWithoutJson(h, props.setProduct)
+                return saveProduct(h, props.setProduct)
             })
         }
         imageInputRef.current.value = "";

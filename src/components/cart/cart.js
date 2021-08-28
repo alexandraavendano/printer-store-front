@@ -7,8 +7,9 @@ import {getRole} from "../helpers/dtos";
 import {getImageById} from "../helpers/externalCalls";
 
 function getPrice(item) {
+    debugger
     let unitPrice = item.price * item.quantity;
-    let customizablePrice =  item.customizations.map(c => c.price).reduce((acc, actual) => acc + actual);                      // Customizable are how much each addition is going to cost more.
+    let customizablePrice =  item.customizations.length === 0 ? 0 : item.customizations.map(c => c.price).reduce((acc, actual) => acc + actual);                      // Customizable are how much each addition is going to cost more.
 
     return unitPrice + customizablePrice;
 }
@@ -117,7 +118,7 @@ function Prices(props) {
 
 export function Cart() {
     const [items, setItems] = useState(getCartItems);
-    const isEmpty = items.length === 0 || items == null
+    const isEmpty = items.length === 0 || items === null
     const role = getRole();
 
     if (isEmpty) {
