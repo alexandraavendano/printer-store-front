@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import distinct from "../helpers/listHelper";
+import {distinct} from "../helpers/listHelper";
 import {getProductsByType} from "../helpers/externalCalls";
 import {getFirstImage} from "../helpers/imageHelper";
 import './showProduct.css';
+
 
 export default function ShowProducts(props) {
     const [products, setProducts] = useState([]);

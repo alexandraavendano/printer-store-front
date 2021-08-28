@@ -83,7 +83,10 @@ export function saveProductWithoutJson(body, setProduct) {
     return fetch("http://localhost:8080/products", simplePost(body))
         .then(res => res.json())
         .then(
-            (result) => setProduct(result),
+            (result) => {
+                setProduct(result)
+                return result;
+            },
             (error) => console.log(error)
         )
 }
@@ -92,7 +95,10 @@ export function getProductType(setProductTypes) {
     return fetch("http://localhost:8080/products/productTypes", getWithAuthorization())
         .then(res => res.json())
         .then(
-            (result) => setProductTypes(result),
+            (result) => {
+                setProductTypes(result);
+                return result;
+            },
             (error) => console.log(error)
         )
 }
