@@ -1,19 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {Spinner} from "react-bootstrap";
-import {getProducts} from "../../helpers/externalCalls";
+import {getProductsByQuery} from "../../helpers/externalCalls";
 import {SearchBar} from "../../common/searchBar";
 import {ProductTable} from "./productTable";
 import {Link} from "react-router-dom";
 
-//TODO:
-// Add search button functionality
-// Create add
-// Edit
 export default function ProductDashboard() {
     const [products, setProducts] = useState([]);
     const [query, setQuery] = useState("");
     const [selectedProducts, setSelectedProducts] = useState(new Set());
-    const [refresh, setRefresh] = useState(false);
 
     const handleSelectedProducts = (e) => {
         const employeeId = e.target.value;
@@ -21,7 +16,11 @@ export default function ProductDashboard() {
         setSelectedProducts(selectedProducts);
     }
 
-    useEffect(() => {getProducts( setProducts)}, [refresh, query])
+    useEffect(() => {
+        const url = "http://localhost:8080/products/all";
+        const urlQuery = query !== "" ? url + `?query=${query}` : url
+        getProductsByQuery(urlQuery, setProducts);
+    }, [query])
 
     if (products === null) {
         return (<Spinner animation="border"/>)

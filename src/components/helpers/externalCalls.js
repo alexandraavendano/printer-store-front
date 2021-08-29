@@ -52,6 +52,15 @@ export function getProducts(setProducts) {
         )
 }
 
+export function getProductsByQuery(url, setProducts) {
+    fetch(url, simpleGET)
+        .then(res => res.json())
+        .then(
+            (result) => setProducts(result),
+            (error) => console.log(error)
+        )
+}
+
 export function getProductsById(setProduct, id) {
     fetch(`http://localhost:8080/products/${id}`, simpleGET)
         .then(res => res.json())
