@@ -8,6 +8,11 @@ export const getSrc = (image) => {
     return `data:image/${extension};base64,`+ image.content;
 }
 
+export const getImage = (image) => {
+    if(image.name !== undefined) return getSrc(image);
+    else return require('../../images/not-found-image.jpg').default
+}
+
 export const getDesignOrDefaultImage = (item) => {
     if(item.image === null) {
         const itemsCustomizable = item.customizations.filter(i => i.type.name === "Customizable");

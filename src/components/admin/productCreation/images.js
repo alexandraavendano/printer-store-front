@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {getSrc} from "../../helpers/imageHelper";
 import {saveImage, saveProduct} from "../../helpers/externalCalls";
+import {InputImage} from "../../helpers/formHelper";
 
 export function ImagesForm(props) {
     const [images, setImages] = useState([]);
@@ -35,25 +36,7 @@ export function ImagesForm(props) {
                 <img src={getSrc(image)} className="img-thumbnail" alt={"name"}
                      style={{maxHeight: 150, maxWidth: 150}} key={image.id}/>
             )}
-
-            <div>
-                <label className={"form-label"} style={{marginTop: 30}}>Add more</label>
-                <div className="input-group">
-                    <input type="file"
-                           className="form-control"
-                           id="inputGroupFile04"
-                           aria-describedby="inputGroupFileAddon04"
-                           aria-label="Upload"
-                           ref={imageInputRef}
-                           onChange={(e) => handleFiles(e)}/>
-                    {images === null || images.length === 0
-                        ? <button className="btn btn-outline-secondary" type="button" disabled>Upload</button>
-                        : <button className="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"
-                                  onClick={(e) => handleSubmit(e)}>Upload
-                        </button>
-                    }
-                </div>
-            </div>
+            <InputImage imageInputRef={imageInputRef} handleFiles={handleFiles} images={images} handleSubmit={handleSubmit} id={props.product.id} title={"title"} margin={35}/>
         </div>
     )
 }

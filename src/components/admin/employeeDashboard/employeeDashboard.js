@@ -19,6 +19,7 @@ export default function EmployeeDashboard() {
     const [refresh, setRefresh] = useState(false);
 
     const handleRefresh = () => setRefresh(!refresh);
+
     const handleClose = () => {
         handleRefresh();
         setShow(false);

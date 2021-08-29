@@ -66,7 +66,8 @@ export function DropMenu(props) {
         return (
             <div>
                 <label>{props.title}</label>
-                <select className="form-select form-select-sm" onChange={e => props.handleChange(parseInt(e.target.value))}>
+                <select className="form-select form-select-sm"
+                        onChange={e => props.handleChange(parseInt(e.target.value))}>
                     {props.array.map(elm =>
                         <option key={elm.id} value={elm.id}>{elm.name}</option>
                     )}
@@ -77,13 +78,13 @@ export function DropMenu(props) {
 }
 
 export function FloatingInput(props) {
-    return(
+    return (
         <div className="form-floating mb-3">
             <input
                 type="text"
                 className="form-control"
                 id={props.id}
-                onKeyPress= {props.validFormat}
+                onKeyPress={props.validFormat}
                 maxLength={props.maxLength}
                 value={props.value}
                 onChange={(e) => props.handleChange(e.target.value)}/>
@@ -93,13 +94,13 @@ export function FloatingInput(props) {
 }
 
 export function FloatingInputPassword(props) {
-    return(
+    return (
         <div className="form-floating mb-3">
             <input
                 type="password"
                 className="form-control"
                 id={props.id}
-                onKeyPress= {props.validFormat}
+                onKeyPress={props.validFormat}
                 maxLength={props.maxLength}
                 value={props.value}
                 onChange={(e) => props.handleChange(e.target.value)}/>
@@ -109,7 +110,7 @@ export function FloatingInputPassword(props) {
 }
 
 export function SimpleInput(props) {
-    return(
+    return (
         <div className="input-group mb-3">
             <label className="input-group-text" htmlFor="inputGroupSelect01">{props.title}</label>
             <input
@@ -126,7 +127,7 @@ export function SimpleInput(props) {
 
 
 export function SimpleInput2(props) {
-    return(
+    return (
         <div className="mb-3">
             <label className="form-label" htmlFor="inputGroupSelect01">{props.title}</label>
             <input
@@ -142,3 +143,25 @@ export function SimpleInput2(props) {
     )
 }
 
+export function InputImage(props) {
+    return (
+        <div>
+            <label className={"form-label"} style={{marginTop: props.margin}}>{props.title}</label>
+            <div className="input-group">
+                <input type="file"
+                       className="form-control"
+                       id={props.id}
+                       aria-describedby="inputGroupFileAddon04"
+                       aria-label="Upload"
+                       ref={props.imageInputRef}
+                       onChange={(e) => props.handleFiles(e)}/>
+                { props.images === null ||  props.images.length === 0
+                    ? <button className="btn btn-outline-secondary" type="button" disabled>Upload</button>
+                    : <button className="btn btn-outline-secondary" type="button" id={props.id}
+                              onClick={(e) => props.handleSubmit(e)}>Upload
+                    </button>
+                }
+            </div>
+        </div>
+    )
+}

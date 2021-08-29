@@ -12,3 +12,7 @@
     color: #52b3d0;
     font-weight: bold;
 }
+
+.table {
+    margin-bottom: 0 !important;
+}

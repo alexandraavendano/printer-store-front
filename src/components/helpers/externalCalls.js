@@ -2,6 +2,17 @@ const simpleGET = {
     method: 'GET'
 }
 
+const simplePut = (body) => {
+    return {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + localStorage.getItem("token"),
+        },
+        body: JSON.stringify(body)
+    };
+}
+
 const simplePost = (body) => {
     return {
         method: 'POST',
@@ -159,6 +170,24 @@ export function getOrders(setOrders) {
         )
 }
 
+//-------------- ITEMS
+export function saveItem(body) {
+    return fetch("http://localhost:8080/items", simplePut(body))
+        .then(res => res.json())
+        .then(
+            (result) => result,
+            (error) => console.log(error)
+        )
+}
+
+export function getItem(id, setItem) {
+    return fetch(`http://localhost:8080/items?id=${id}`, getWithAuthorization())
+        .then(res => res.json())
+        .then(
+            (result) => setItem(result),
+            (error) => console.log(error)
+        )
+}
 //-------------- EMPLOYEE
 export function saveEmployee(isSuccess, body) {
     fetch('http://localhost:8080/employees/signup', simplePost(body))

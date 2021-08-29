@@ -1,31 +1,83 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {getImage} from "../../helpers/imageHelper";
+import {InputImage} from "../../helpers/formHelper";
+import {getItem, saveImage, saveItem} from "../../helpers/externalCalls";
+import {Modal} from "react-bootstrap";
+
+export function ImageModal(props) {
+    const imageInputRef = React.useRef();
+    const [images, setImages] = useState([]);
+    const [image, setImage] = useState({});
+
+    const updateItem = (item) => {
+        setImage(item.image)
+    }
+
+    const handleFiles = (e) => {
+        setImages(e.target.files);
+    }
+
+    const handleSubmit = (e) => {
+
+        if (images != null) {
+            saveImage(images).then(image => {
+                props.item["image"] = {id: image.id};
+                return saveItem(props.item);
+            }).then(item => {
+                debugger
+                setImage(item.image);
+            });
+        }
+        imageInputRef.current.value = "";
+        e.preventDefault();
+    }
+
+    useEffect(() => {
+        if (props.item.id !== undefined) {
+            getItem(props.item.id, updateItem)
+        }
+    }, [props.item.image, props.show])
+
+    if (props.show === false || props.item.image === undefined || image === undefined) {
+        return (<div/>);
+    } else {
+        return (
+            <Modal
+                size="lg"
+                show={props.show}
+                onHide={props.handleClose}
+                aria-labelledby="example-modal-sizes-title-lg"
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="example-modal-sizes-title-lg">
+                        Update file #{props.item.id}
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div>
+                        <a download={image.name} href={getImage(image)}>
+                            <img src={getImage(image)} className="img-thumbnail"
+                                 alt={"name"}
+                                 style={{maxHeight: 450, maxWidth: 450}}
+                                 key={image.id}/>
+                        </a>
+                        <InputImage imageInputRef={imageInputRef} handleFiles={handleFiles}
+                                    images={images}
+                                    handleSubmit={handleSubmit} id={props.item.id} title={""}
+                                    margin={0}/>
+                    </div>
+                </Modal.Body>
+            </Modal>
+        );
+    }
+}
 
 //TODO:
 // Cambiar el estado de la orden
-// Subir archivos
-// Descargar archivos
+// Subir archivos OK
+// Descargar archivos OK
 export function ItemsTable(props) {
-    const items = props.item;
-
-    const download = e => {
-        console.log(e.target.href);
-        fetch(e.target.href, {
-            method: "GET",
-            headers: {}
-        }).then(response => {
-                response.arrayBuffer().then(function(buffer) {
-                    const url = window.URL.createObjectURL(new Blob([buffer]));
-                    const link = document.createElement("a");
-                    link.href = url;
-                    link.setAttribute("download", "image.png"); //or any other extension
-                    document.body.appendChild(link);
-                    link.click();
-                });
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    };
+    const items = props.items;
 
     if (items === undefined || items.length === 0) {
         return <div/>
@@ -35,12 +87,12 @@ export function ItemsTable(props) {
                 <table className="table table-bordered">
                     <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Customizations</th>
+                        <th>Qt</th>
                         <th>Height</th>
                         <th>Width</th>
                         <th>Status</th>
                         <th>Notes</th>
+                        <th>Customizations</th>
                         <th>Image</th>
                     </tr>
                     </thead>
@@ -48,6 +100,11 @@ export function ItemsTable(props) {
                     {items.map(item =>
                         <tr key={item.id}>
                             <td>{item.quantity}</td>
+
+                            <td>{item.height}</td>
+                            <td>{item.width}</td>
+                            <td>{item.state.name}</td>
+                            <td>{item.designNotes}</td>
                             <td>
                                 <ul className="list-group list-group-flush">
                                     {item.customizations.map(c =>
@@ -55,13 +112,10 @@ export function ItemsTable(props) {
                                     )}
                                 </ul>
                             </td>
-                            <td>{item.height}</td>
-                            <td>{item.width}</td>
-                            <td>{item.state.name}</td>
-                            <td>{item.designNotes}</td>
-                            <td>{item.image === null
-                                ? <button className={"btn btn-primary"}>Upload</button>
-                                : <button className={"btn btn-primary"}>Download</button>}
+                            <td>
+                                <img src={getImage(item.image)} className="img-thumbnail" alt={"name"}
+                                     style={{maxHeight: 150, maxWidth: 150}} key={item.image.id}
+                                     onClick={() => props.handleShow(item)}/>
                             </td>
                         </tr>
                     )}
