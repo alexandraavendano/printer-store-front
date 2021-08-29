@@ -152,6 +152,15 @@ export function saveOrder(setOrder, body) {
         )
 }
 
+export function saveOrderWithoutSet(body) {
+    return fetch("http://localhost:8080/users/orders", simplePost(body))
+        .then(res => res.json())
+        .then(
+            (result) => result,
+            (error) => console.log(error)
+        )
+}
+
 export function getOrderByUser(setOrder, id) {
     return fetch(`http://localhost:8080/users/orders/${id}`, getWithAuthorization())
         .then(res => res.json())
@@ -188,6 +197,16 @@ export function getItem(id, setItem) {
             (error) => console.log(error)
         )
 }
+//-------------- STATES
+export function getStates(setState) {
+    fetch(`http://localhost:8080/states`, getWithAuthorization())
+        .then(res => res.json())
+        .then(
+            (result) => setState(result),
+            (error) => console.log(error)
+        )
+}
+
 //-------------- EMPLOYEE
 export function saveEmployee(isSuccess, body) {
     fetch('http://localhost:8080/employees/signup', simplePost(body))

@@ -25,10 +25,10 @@ export function BasicInformationForm(props) {
                 <div className="col">
                     <div>
                         <label>Category</label>
-                        <select className="form-select" name={"name"}
+                        <select className="form-select" name={"name"} value={props.product.type.name}
                                 onChange={(e) => props.handleProductTypeChange(e)}>
                             {distinctName(props.productTypes).map(elm =>
-                                <option key={elm} value={elm} selected={props.product.type.name === elm}>{elm}</option>
+                                <option key={elm} value={elm} >{elm}</option>
                             )}
                         </select>
                     </div>
@@ -36,10 +36,10 @@ export function BasicInformationForm(props) {
                 <div className="col">
                     <div>
                         <label>Sub Category</label>
-                        <select className="form-select" aria-label="Default select example" name={"subType"}
+                        <select className="form-select" aria-label="Default select example" name={"subType"} value={props.product.type.subType}
                                 onChange={(e) => props.handleProductTypeChange(e)}>
                             {distinctSubType(props.productTypes).map(elm =>
-                                <option key={elm} value={elm} selected={props.product.type.subType === elm}>{elm}</option>
+                                <option key={elm} value={elm}>{elm}</option>
                             )}
                         </select>
                     </div>

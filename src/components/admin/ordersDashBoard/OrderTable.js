@@ -68,14 +68,9 @@ export function ImageModal(props) {
     }
 }
 
-//TODO:
-// Cambiar el estado de la orden
-// Subir archivos OK
-// Descargar archivos OK
 export function ItemsTable(props) {
     const items = props.items;
-
-    if (items === undefined || items.length === 0) {
+    if (items === undefined || items.length === 0 || props.states === []) {
         return <div/>
     } else {
         return (
@@ -99,17 +94,13 @@ export function ItemsTable(props) {
                             <td>{item.height}</td>
                             <td>{item.width}</td>
                             <td>
-
-                                {item.state.name}
-                                {/*<div>*/}
-                                {/*    <label>Category</label>*/}
-                                {/*    <select className="form-select" name={"name"}*/}
-                                {/*            onChange={(e) => props.handleProductTypeChange(e)}>*/}
-                                {/*        {distinctName(props.productTypes).map(elm =>*/}
-                                {/*            <option key={elm} value={elm} selected={props.product.type.name === elm}>{elm}</option>*/}
-                                {/*        )}*/}
-                                {/*    </select>*/}
-                                {/*</div>*/}
+                                <div>
+                                    <select className="form-select" value={item.state.name} name={"state"} onChange={(e) => props.handleStatusChange(e, item)}>
+                                        {props.states.map(elm =>
+                                            <option key={elm.name} value={elm.name}>{elm.name}</option>
+                                        )}
+                                    </select>
+                                </div>
                             </td>
                             <td>{item.designNotes}</td>
                             <td>

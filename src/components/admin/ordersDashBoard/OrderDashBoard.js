@@ -1,14 +1,19 @@
 import React, {useEffect, useState} from "react";
-import {getOrders} from "../../helpers/externalCalls";
+import {getOrders, getStates, saveItem, saveOrderWithoutSet} from "../../helpers/externalCalls";
 import {ImageModal, ItemsTable} from "./OrderTable";
 
 export function OrderDashBoard() {
     const [orders, setOrders] = useState([]);
     const [item, setItem] = useState({})
+    const [states, setStates] = useState([]);
     const [refresh, setRefresh] = useState(false);
     const [show, setShow] = useState(false);
+    const [editStatus, setEditStatus] = useState(false);
 
-    const handleRefresh = () => setRefresh(!refresh);
+    const handleRefresh = () => {
+        setEditStatus(!editStatus);
+        setRefresh(!refresh);
+    }
 
     const handleClose = () => {
         handleRefresh();
@@ -20,8 +25,21 @@ export function OrderDashBoard() {
         setShow(true);
     }
 
+    const handleOrderStatusChange = (e, order) => {
+        const {name, value} = e.target;
+        order[name] = {name:value};
+        saveOrderWithoutSet(order).then(() =>handleRefresh());
+    }
+
+    const handleItemStatusChange = (e, item) => {
+        const {name, value} = e.target;
+        item[name] = {name:value};
+        saveItem(item).then(() => handleRefresh());
+    }
+
     useEffect(() => {
         getOrders(setOrders);
+        getStates(setStates);
     }, [refresh]);
 
     if (orders.length === 0) {
@@ -37,14 +55,24 @@ export function OrderDashBoard() {
                                     <strong>#{order.id}</strong>
                                 </div>
                                 <div className="col-6">
-                                    <span>Status: {order.state.name}</span>
+                                    {editStatus
+                                        ? <div>
+                                            <select className="form-select" value={order.state.name} name={"state"}
+                                                    onChange={(e) => handleOrderStatusChange(e, order)}>
+                                                {states.map(elm =>
+                                                    <option key={elm.name} value={elm.name}>{elm.name}</option>
+                                                )}
+                                            </select>
+                                          </div>
+                                        : <div onClick={() => setEditStatus(true)}>Status: {order.state.name}</div>
+                                    }
                                 </div>
                                 <div className="col-4">
                                     <span>Creation Date: {new Date(order.date).toLocaleDateString()} </span>
                                 </div>
                             </div>
                         </div>
-                        <ItemsTable key={order.id} items={order.items} show={show} setShow={setShow} handleClose={handleClose} handleShow={handleShow}/>
+                        <ItemsTable key={order.id} items={order.items} show={show} setShow={setShow} handleClose={handleClose} handleShow={handleShow} states={states} handleStatusChange={handleItemStatusChange}/>
                     </div>
                 )}
                 <ImageModal show={show} item={item} handleClose={handleClose}/>
