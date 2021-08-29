@@ -1,13 +1,14 @@
-import {getSrc} from "../helpers/imageHelper";
+import {getDesignOrDefaultImage} from "../helpers/imageHelper";
 
 export function ItemDetails(props) {
     const item = props.item;
     const customizations = item.customizations;
+
     return (
         <div key={props.index} className="card mb-3">
             <div className="row g-0">
                 <div className="col-md-2">
-                    <img src={getSrc(item.image)} className="card-img" alt={"name"}/>
+                    <img src={getDesignOrDefaultImage(item)} className="card-img" alt={"name"}/>
                 </div>
                 <div className="col-md-10">
                     <div className="card-body">

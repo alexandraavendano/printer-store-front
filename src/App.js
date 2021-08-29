@@ -9,7 +9,7 @@ import Header from "./components/common/header";
 import Footer from "./components/common/footer";
 import {Redirect} from "react-router";
 import React, {useState} from "react";
-import Orders from "./components/orders/orders";
+import Orders from "./components/ordersByUser/orders";
 import NotFound from "./components/common/notFound";
 import EmployeeDashboard from "./components/admin/employeeDashboard/employeeDashboard";
 import ShowProducts from "./components/products/showProducts";
@@ -22,6 +22,7 @@ import ProductDashboard from "./components/admin/productDashboard/productDashboa
 import {ProductCreateAndEdit} from "./components/admin/productCreation/productCreateAndEdit";
 import "./components/common/common.css";
 import './style.scss'
+import {OrderDashBoard} from "./components/admin/ordersDashBoard/OrderDashBoard";
 
 function LogOut(props) {
     localStorage.removeItem("token")
@@ -97,6 +98,9 @@ function App() {
                                 </Route>
                                 <Route exact path="/admin/products/create">
                                     {role === "ROLE_ADMIN" ? <ProductCreateAndEdit/>: <Redirect to="/login"/>}
+                                </Route>
+                                <Route exact path="/orders">
+                                    {role === "ROLE_ADMIN" || role === "ROLE_EMPLOYEE" ? <OrderDashBoard/>: <Redirect to="/login"/>}
                                 </Route>
                                 <Route path="/logout">
                                     <LogOut setToken={setToken}/>

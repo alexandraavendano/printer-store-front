@@ -7,7 +7,6 @@ import {getRole} from "../helpers/dtos";
 import {getImageById} from "../helpers/externalCalls";
 
 function getPrice(item) {
-    debugger
     let unitPrice = item.price * item.quantity;
     let customizablePrice =  item.customizations.length === 0 ? 0 : item.customizations.map(c => c.price).reduce((acc, actual) => acc + actual);                      // Customizable are how much each addition is going to cost more.
 
@@ -30,7 +29,7 @@ function ItemDetails(props) {
 
     useEffect(() => getImageById(setImage, props.item.image.id), [props.item])
 
-    if(image.name === undefined ) {
+    if(image.name === undefined) {
         return (<div/>)
     } else {
         return (

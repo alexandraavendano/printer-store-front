@@ -16,9 +16,6 @@ const simplePost = (body) => {
 const multipartPost = (body) => {
     return {
         method: 'POST',
-        headers: {
-            'Authorization': 'Bearer' + localStorage.getItem("token"),
-        },
         body: body
     };
 }
@@ -149,6 +146,15 @@ export function getOrderByUser(setOrder, id) {
         .then(res => res.json())
         .then(
             (result) => setOrder(result),
+            (error) => console.log(error)
+        )
+}
+
+export function getOrders(setOrders) {
+    fetch(`http://localhost:8080/orders`, getWithAuthorization())
+        .then(res => res.json())
+        .then(
+            (result) => setOrders(result),
             (error) => console.log(error)
         )
 }

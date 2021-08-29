@@ -43,7 +43,7 @@ export function Payment(props) {
 
         savePayment(payment)
             .then(saveOrder(setRedirectToOrders, orderDTO()))
-            .then(localStorage.removeItem("cart"));
+            .then(() => localStorage.removeItem("cart"));
 
         e.preventDefault();
     }

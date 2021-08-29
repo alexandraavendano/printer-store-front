@@ -22,12 +22,11 @@ function itemsDTO() {
     const cart = JSON.parse(localStorage.getItem("cart"));
 
     return cart.map(item => {
-
             const customizations = item.customizations.map(c => {
                 return {id: c.id}
             })
 
-            return {
+            let itemDTO = {
                 height: item.height,
                 width: item.width,
                 price: item.price,
@@ -35,9 +34,13 @@ function itemsDTO() {
                 state: {
                     name: "Ready to Print"
                 },
-                image: item.image,
-                customizations: [...customizations, {id: item.id}]
+                designNotes: item.designIdeas,
+                customizations: [...customizations, {id: item.id}],
             };
+
+            if (item.hasCustomDesign) itemDTO["image"] = item.image;
+
+            return itemDTO;
         }
     )
 }
@@ -56,27 +59,28 @@ export function orderDTO() {
 
 
 function getCustomizableObject(product, id) {
-    debugger
     return product.customizable.find(c => c.id === id);
 }
 
 export function cartItemDTO(product, quantity, height, width, material, structure, customizedImageId, designIdeas) {
-    const imageId = customizedImageId === -1 ? product.images[0].id : customizedImageId;
+    const isCustomDesign = customizedImageId !== -1;
+    const imageId = isCustomDesign ? customizedImageId : product.images[0].id;
 
-    let item= {
+    let item = {
         id: product.id,
         name: product.name,
         price: product.price,
         height: height,
         width: width,
         quantity: quantity,
-        image:  {id: imageId},
+        image: {id: imageId},
         designIdeas: designIdeas,
-        customizations: []
+        customizations: [],
+        hasCustomDesign: isCustomDesign
     };
 
-    if(structure !== -1) item.customizations.push(getCustomizableObject(product, structure));
-    if(material !== -1) item.customizations.push(getCustomizableObject(product, material));
+    if (structure !== -1) item.customizations.push(getCustomizableObject(product, structure));
+    if (material !== -1) item.customizations.push(getCustomizableObject(product, material));
 
     return item;
 }
