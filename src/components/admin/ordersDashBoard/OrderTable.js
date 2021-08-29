@@ -18,15 +18,11 @@ export function ImageModal(props) {
     }
 
     const handleSubmit = (e) => {
-
         if (images != null) {
             saveImage(images).then(image => {
                 props.item["image"] = {id: image.id};
                 return saveItem(props.item);
-            }).then(item => {
-                debugger
-                setImage(item.image);
-            });
+            }).then(item => setImage(item.image));
         }
         imageInputRef.current.value = "";
         e.preventDefault();
@@ -36,7 +32,7 @@ export function ImageModal(props) {
         if (props.item.id !== undefined) {
             getItem(props.item.id, updateItem)
         }
-    }, [props.item.image, props.show])
+    }, [props.item.id])
 
     if (props.show === false || props.item.image === undefined || image === undefined) {
         return (<div/>);
@@ -100,15 +96,26 @@ export function ItemsTable(props) {
                     {items.map(item =>
                         <tr key={item.id}>
                             <td>{item.quantity}</td>
-
                             <td>{item.height}</td>
                             <td>{item.width}</td>
-                            <td>{item.state.name}</td>
+                            <td>
+
+                                {item.state.name}
+                                {/*<div>*/}
+                                {/*    <label>Category</label>*/}
+                                {/*    <select className="form-select" name={"name"}*/}
+                                {/*            onChange={(e) => props.handleProductTypeChange(e)}>*/}
+                                {/*        {distinctName(props.productTypes).map(elm =>*/}
+                                {/*            <option key={elm} value={elm} selected={props.product.type.name === elm}>{elm}</option>*/}
+                                {/*        )}*/}
+                                {/*    </select>*/}
+                                {/*</div>*/}
+                            </td>
                             <td>{item.designNotes}</td>
                             <td>
                                 <ul className="list-group list-group-flush">
                                     {item.customizations.map(c =>
-                                        <li className="list-group-item">{c.name + "-" + c.type.subType}</li>
+                                        <li key={c.id} className="list-group-item">{c.name + "-" + c.type.subType}</li>
                                     )}
                                 </ul>
                             </td>

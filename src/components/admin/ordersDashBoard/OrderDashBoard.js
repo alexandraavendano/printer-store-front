@@ -6,7 +6,6 @@ export function OrderDashBoard() {
     const [orders, setOrders] = useState([]);
     const [item, setItem] = useState({})
     const [refresh, setRefresh] = useState(false);
-
     const [show, setShow] = useState(false);
 
     const handleRefresh = () => setRefresh(!refresh);
@@ -31,7 +30,7 @@ export function OrderDashBoard() {
         return (
             <div className={"content-container"}>
                 {orders.map(order =>
-                    <div className="card" style={{marginTop: 25}}>
+                    <div key={order.id} className="card" style={{marginTop: 25}}>
                         <div className={"card-header"}>
                             <div className="row align-items-start">
                                 <div className="col-2">
@@ -45,8 +44,7 @@ export function OrderDashBoard() {
                                 </div>
                             </div>
                         </div>
-                        <ItemsTable
-                            items={order.items} show={show} setShow={setShow} handleClose={handleClose} handleShow={handleShow}/>
+                        <ItemsTable key={order.id} items={order.items} show={show} setShow={setShow} handleClose={handleClose} handleShow={handleShow}/>
                     </div>
                 )}
                 <ImageModal show={show} item={item} handleClose={handleClose}/>

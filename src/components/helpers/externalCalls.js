@@ -181,7 +181,7 @@ export function saveItem(body) {
 }
 
 export function getItem(id, setItem) {
-    return fetch(`http://localhost:8080/items?id=${id}`, getWithAuthorization())
+    fetch(`http://localhost:8080/items?id=${id}`, getWithAuthorization())
         .then(res => res.json())
         .then(
             (result) => setItem(result),
