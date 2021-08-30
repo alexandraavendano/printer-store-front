@@ -5,7 +5,7 @@ export function EmployeeTable(props) {
     const employees = props.employees;
 
     return (
-        <div className={"table-container"}>
+        <div className={"table-container"} style={{marginBottom:15}}>
             <table className="table table-striped table-bordered">
                 <thead>
                 <tr>

@@ -6,7 +6,7 @@ export function ProductTable(props) {
 
     if (products === undefined) return <div/>
     return (
-        <div className={"table-container"}>
+        <div className={"table-container"} style={{marginBottom:15}}>
             <table className="table table-striped table-bordered">
                 <thead>
                 <tr>
