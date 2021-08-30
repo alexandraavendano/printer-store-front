@@ -34,7 +34,7 @@ export function ImageModal(props) {
         }
     }, [props.item.id])
 
-    if (props.show === false || props.item.image === undefined || image === undefined) {
+    if (props.show === false ) {
         return (<div/>);
     } else {
         return (
@@ -49,12 +49,16 @@ export function ImageModal(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <div>
-                        <a download={image.name} href={getImage(image)}>
-                            <img src={getImage(image)} className="img-thumbnail"
-                                 alt={"name"}
-                                 style={{maxHeight: 450, maxWidth: 450}}
-                                 key={image.id}/>
-                        </a>
+                        {props.item.image === null || props.item.image === undefined || image === undefined || image === null
+                            ? <div/>
+                            : <a download={image.name} href={getImage(image)}>
+                                <img src={getImage(image)} className="img-thumbnail"
+                                     alt={"name"}
+                                     style={{maxHeight: 450, maxWidth: 450}}
+                                     key={image.id}/>
+                            </a>
+                        }
+
                         <InputImage imageInputRef={imageInputRef} handleFiles={handleFiles}
                                     images={images}
                                     handleSubmit={handleSubmit} id={props.item.id} title={""}
@@ -109,9 +113,12 @@ export function ItemsTable(props) {
                                 </ul>
                             </td>
                             <td>
-                                <img src={getImage(item.image)} className="img-thumbnail" alt={"name"}
-                                     style={{maxHeight: 150, maxWidth: 150}} key={item.image.id}
-                                     onClick={() => props.handleShow(item)}/>
+                                { item.image === null
+                                    ? <button className={"btn btn-primary"} onClick={() => props.handleShow(item)}>Update</button>
+                                    : <img src={getImage(item.image)} className="img-thumbnail" alt={"name"}
+                                          style={{maxHeight: 150, maxWidth: 150}} key={item.image.id}
+                                          onClick={() => props.handleShow(item)}/>
+                                }
                             </td>
                         </tr>
                     )}

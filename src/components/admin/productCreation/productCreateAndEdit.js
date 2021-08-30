@@ -69,43 +69,47 @@ export function ProductCreateAndEdit() {
         getProductType(setProductTypes).then(types => updateDefaultType(types[0].name, types[0].subType));
     }, [id.id])
 
-    return (
-        <div className={"nav-container"}>
-            <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-                <Row>
-                    <Col sm={3}>
-                        <Nav variant="pills" className="flex-column">
-                            <Nav.Item>
-                                <Nav.Link eventKey="first">Basic Information</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link eventKey="second"
-                                          disabled={id.id === "create" && product.id === undefined}>Images</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link eventKey="third"
-                                          disabled={(id.id === "create" && product.id === undefined) || product.type.name === "Raw"}>Customizations</Nav.Link>
-                            </Nav.Item>
-                        </Nav>
-                    </Col>
-                    <Col sm={9}>
-                        <Tab.Content style={{minHeight: 500}}>
-                            <Tab.Pane eventKey="first">
-                                <BasicInformationForm product={product} handleChange={handleChange}
-                                                      handleSave={handleSave} productTypes={productTypes}
-                                                      handleProductTypeChange={handleProductTypeChange}/>
-                            </Tab.Pane>
-                            <Tab.Pane eventKey="second">
-                                <ImagesForm product={product} handleImageChange={handleImageChange}
-                                            setProduct={setProduct}/>
-                            </Tab.Pane>
-                            <Tab.Pane eventKey="third">
-                                <CustomizationForm product={product} setProduct={setProduct}/>
-                            </Tab.Pane>
-                        </Tab.Content>
-                    </Col>
-                </Row>
-            </Tab.Container>
-        </div>
-    )
+    if (product.type === undefined) {
+        return <div/>
+    } else {
+        return (
+            <div className={"nav-container"}>
+                <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                    <Row>
+                        <Col sm={3}>
+                            <Nav variant="pills" className="flex-column">
+                                <Nav.Item>
+                                    <Nav.Link eventKey="first">Basic Information</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="second"
+                                              disabled={id.id === "create" && product.id === undefined}>Images</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="third"
+                                              disabled={(id.id === "create" && product.id === undefined) || product.type.name === "Raw"}>Customizations</Nav.Link>
+                                </Nav.Item>
+                            </Nav>
+                        </Col>
+                        <Col sm={9}>
+                            <Tab.Content style={{minHeight: 500}}>
+                                <Tab.Pane eventKey="first">
+                                    <BasicInformationForm product={product} handleChange={handleChange}
+                                                          handleSave={handleSave} productTypes={productTypes}
+                                                          handleProductTypeChange={handleProductTypeChange}/>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="second">
+                                    <ImagesForm product={product} handleImageChange={handleImageChange}
+                                                setProduct={setProduct}/>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="third">
+                                    <CustomizationForm product={product} setProduct={setProduct}/>
+                                </Tab.Pane>
+                            </Tab.Content>
+                        </Col>
+                    </Row>
+                </Tab.Container>
+            </div>
+        );
+    }
 }

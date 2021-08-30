@@ -36,7 +36,7 @@ export function ImagesForm(props) {
                 <img src={getSrc(image)} className="img-thumbnail" alt={"name"}
                      style={{maxHeight: 150, maxWidth: 150}} key={image.id}/>
             )}
-            <InputImage imageInputRef={imageInputRef} handleFiles={handleFiles} images={images} handleSubmit={handleSubmit} id={props.product.id} title={"title"} margin={35}/>
+            <InputImage imageInputRef={imageInputRef} handleFiles={handleFiles} images={images} handleSubmit={handleSubmit} id={props.product.id} title={"Add more"} margin={35}/>
         </div>
     )
 }
