@@ -11,7 +11,7 @@ export function OrderDashBoard() {
     const [editStatus, setEditStatus] = useState(false);
 
     const handleRefresh = () => {
-        setEditStatus(!editStatus);
+        setEditStatus(false);
         setRefresh(!refresh);
     }
 

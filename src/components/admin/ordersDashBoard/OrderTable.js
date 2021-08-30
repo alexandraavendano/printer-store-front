@@ -39,14 +39,12 @@ export function ImageModal(props) {
     } else {
         return (
             <Modal
-                size="lg"
                 show={props.show}
                 onHide={props.handleClose}
-                aria-labelledby="example-modal-sizes-title-lg"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title id="example-modal-sizes-title-lg">
-                        Update file #{props.item.id}
+                    <Modal.Title id="ImageModal">
+                        Update image - Item #{props.item.id}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -95,7 +93,7 @@ export function ItemsTable(props) {
                             <td>{item.width}</td>
                             <td>
                                 <div>
-                                    <select className="form-select" value={item.state.name} name={"state"} onChange={(e) => props.handleStatusChange(e, item)}>
+                                    <select className="form-select form-select-sm" value={item.state.name} name={"state"} onChange={(e) => props.handleStatusChange(e, item)}>
                                         {props.states.map(elm =>
                                             <option key={elm.name} value={elm.name}>{elm.name}</option>
                                         )}

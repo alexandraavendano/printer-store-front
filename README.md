@@ -1,42 +1,60 @@
-# Advertisement products website store
+# Printer Store
+
+An entrepreneur wants to have a virtual store to offer advertising products such as mugs, stamps, t-shirts, and many more customizable objects.
+
+## Features
+There are three initial roles for this project:
+
+### Users:
+- Can create an account on the page.
+- On the home page, they will be able to see the list of products
+- For each product they can choose the number of printable object that they want, add a photo to personalize the product, or add a clear description of the design they want.
+- Can add products to a shopping cart.
+- By reviewing the order they will be able to see a summary of the total order price and delete product that they no longer want.
+- After the order was sent the user can check the order and the order status.
+
+### Employee
+- Each of the employees will have an account
+- They can access the orders found in the system.
+- They can download images that users have initially uploaded to the order.
+- They can update the order status.
+- They can update the item status independently.
+
+### Administrator:
+- They can create, read, and update products.
+- They can create, read, and delete employees.
+- They can see all the products as client, but they will not have the checkout button available.
+
+## Tech
+
+This project uses a number of open source projects to work properly:
+
+- [ReactJS](https://reactjs.org/)
+- [Spring](https://spring.io/)
+- [React Bootstrap](https://react-bootstrap.github.io/)
+- [React Router](https://reactrouter.com/)
+- [Bootstrap 5.1](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
+- [Junit](https://junit.org/junit4/)
+- [MariaDB](https://mariadb.org/)
+- [H2](https://www.h2database.com/html/main.html)
+- [Maven](https://maven.apache.org/)
+- [Guava](https://opensource.google/projects/guava)
+- [Spring Security](https://spring.io/projects/spring-security)
+- [JWT](https://jwt.io/)
+
+## Installation
+
+This application requires [Node.js](https://nodejs.org/) v10+ to run.
+
+Install the dependencies and start the server.
+
+```sh
+cd printer-store-front
+npm i
+npm start
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Backend
 [Deploy Backend](https://github.com/alexandraavendano/printer-store) for full functionality. 
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
