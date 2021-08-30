@@ -4,9 +4,6 @@ import {saveOrder, savePayment} from "../helpers/externalCalls";
 import {Redirect} from "react-router";
 import {getUserName, orderDTO} from "../helpers/dtos";
 
-//TODO:
-// Validation not empty
-// Get method payment and give modal option
 const filterNumbers = (event) => {
     if (!/[0-9]/.test(event.key)) {
         event.preventDefault();

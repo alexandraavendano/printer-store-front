@@ -5,7 +5,6 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {RiLogoutCircleRLine} from "react-icons/all";
 
-//TODO: BasicHeader and UserHeader are similar. Try to abstract common links.
 function BasicHeader() {
     return (
         <div>

@@ -6,11 +6,6 @@ import {SearchBar} from "../../common/searchBar";
 import {EmployeeTable} from "./employeeTable";
 import {CreateEmployeeModal} from "./employeeModal";
 
-//TODO:
-// Add search button functionality OK
-// Create add OK
-// Edit
-// Delete button. OK
 export default function EmployeeDashboard() {
     const [employees, setEmployees] = useState([]);
     const [query, setQuery] = useState("");

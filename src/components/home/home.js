@@ -10,7 +10,7 @@ function Home(props) {
             <Banner
                 message={"Advertisement"}
                 submessage={"Design + Print + Install + Delivery"}
-                image={"designtools.png"}
+                image={"design_tools.png"}
             />
             <ShowProducts category='Customizable'/>
             <hr/>

@@ -8,7 +8,6 @@ import {saveImage} from "../helpers/externalCalls";
 const sizes = ["1.7'x3'", "2.5'x4'", "4'x4'", "2.5'x10'", "2.5'x12'", "4'x6'"]
 const quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 25, 50, 100, 250]
 
-//TODO: Add design to the customizations if the design is not ready.
 export function ProductCustomizationForm(props) {
     const [quantity, setQuantity] = useState(quantities[0]);
     const [size, setSize] = useState(sizes[0]);
